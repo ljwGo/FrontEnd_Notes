@@ -1,0 +1,39 @@
+/*输入总盒子*/
+.input-box {
+    width: 200px;
+    background: pink;
+    padding: 10px;
+}
+
+/*输入框*/
+.input-box input{
+    outline: none;
+}
+
+/*友好提示*/
+.tips{
+    position: relative;
+    height: 30px;
+    margin-bottom: 10px;
+    font-size: 23px;
+    background: #fff;
+    border: solid 1px #fff;
+    border-radius: 6px;
+    /*文本缩进*/
+    text-indent: 8px;
+    /*直接隐藏会有问题*/
+    /*overflow: hidden;*/
+}
+
+/*添加提示框的下三角形*/
+.tips::after{
+    content: "";
+    display:block;
+    border-top: 10px #fff solid;
+    border-bottom: 0;
+    border-left: 6px transparent solid;
+    border-right: 6px transparent solid;
+    position: absolute;
+    top: 30px;
+    left: 10px;
+}

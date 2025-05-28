@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../jquery.js"></script>
+    <style>
+        div{
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>我是div</div>
+
+    <script>
+        function $(){
+            console.log('自定义函数$执行了')
+        }
+        $()
+        // 和原本产生了冲突
+        // console.log($('div').offset().top);
+
+        // 解决方式一:将$改为jQuery
+        // console.log(jQuery('div').offset().top);
+
+        // 结局方式二:使用noConflict方法将$符号改名
+        var suibian = jQuery.noConflict()
+        console.log(suibian('div').offset().top);
+    </script>
+</body>
+</html>

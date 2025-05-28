@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount">
+    <!-- 事件参数event, dom的原本参数 -->
+    <div @click="func01">事件参数event</div>
+    <!-- 调用传入参数的事件 -->
+    <div @click="func02('我是参数')">调用传入参数的事件</div>
+    <div @click="func03(parameter)">调用传入data属性的事件</div>
+    <!-- 调用传入参数的事件时, 注意手动传入dom事件参数event -->
+    <div @click="func04(parameter, $event)">调用传入data属性的事件和event对象</div>
+    <!-- 绑定多个事件， 使用，逗号分隔符 -->
+    <div @click="func01, func02()"></div>
+    <!-- 更多修饰符 -->
+      <!-- prevent阻止默认事件 -->
+      <form action="" @submit.prevent="onSubmit"><button>提交</button></form>
+      <!-- stop阻止事件冒泡 -->
+      <div @click="func01">我是爸爸 stop阻止事件冒泡
+        <div @click.stop="func02('son click triggle')">我是儿子</div>
+      </div>
+      <!-- capture开启事件捕获阶段 -->
+      <div @click.capture="func02('事件捕获了')">我是爸爸 capture开启事件捕获阶段
+        <div @click="func02('son click triggle')">我是儿子</div>
+      </div>
+      <!-- once事件只执行一次 -->
+      <div @click.once="func01">once事件只执行一次</div>
+      <!-- self 当event.target === this时，才触发事件 -->
+      <div @click.self="func01">我是爸爸, 这有点我才能出发事件
+        <div>我是儿子</div>
+      </div>
+      <!-- passtive提高默认事件的优先级， 不要和prevent一起使用 -->
+      <p @scroll.passive="onScroll" style="width: 100px; height:300px; word-wrap: break-word; overflow-y: scroll;">
+        longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+      </p>
+    <!-- 按键别名修饰符 -->
+    <input @keyup.enter="onKeyUpEnter">
+    <!-- 按键修饰键 -->
+      <!-- 只有当同时按下ctrl键和k键才会触发 -->
+      <input @keyup.ctrl.enter="onKeyUpEnter">
+    <!-- exact精准修饰键 -->
+      <!-- 不加exact修饰符时, 按下shift或者alt也会执行 -->
+      <button @click.ctrl="onClick">ctrl</button>
+      <button @click.ctrl.exact="onClick">ctrl.exact</button>
+      <!-- 表示不加任何键盘修饰符时触发 -->
+      <button @click.exact="onClick">exact</button>
+    <!-- 鼠标事件修饰符 -->
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data(){
+        return {
+          parameter: "parameter"
+        }
+      },
+      methods: {
+        func01(event){
+          console.log(event)
+          alert(event.target)
+        },
+        func02(arg){
+          alert(arg)
+        },
+        func03(parameter){
+          alert(parameter)
+        },
+        func04(parameter, event){
+          alert(parameter + event)
+        },
+        onSubmit(){
+          confirm("确定提交吗?")
+        },
+        onScroll(){
+          // 滚动是连续的事件触发， 直接使用alert效果不明显
+          // alert("不加passive滚动应该会停止的!!!")
+        },
+        onKeyUpEnter(){
+          console.log("enter键被按下了")
+        },
+        onClick(event){
+          console.log(event.keyCode + event.key)
+        }
+      }
+    })
+
+    app.mount("#mount")
+  </script>
+</body>
+</html>

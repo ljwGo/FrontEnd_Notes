@@ -1,0 +1,1 @@
+{"name":"jqueryDLL","content":{"../node_modules/jQuery/dist/jquery.js":{"id":187,"buildMeta":{}},"../node_modules/bootstrap/dist/js/bootstrap.esm.js":{"id":633,"buildMeta":{"exportsType":"namespace"},"exports":["Alert","Button","Carousel","Collapse","Dropdown","Modal","Offcanvas","Popover","ScrollSpy","Tab","Toast","Tooltip"]}}}

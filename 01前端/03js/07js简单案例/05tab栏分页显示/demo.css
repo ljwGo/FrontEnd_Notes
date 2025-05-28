@@ -1,0 +1,35 @@
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    border: 1px solid #ddd;
+    height: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+
+.detail-info-banner{
+    width: 500px;
+    height: 500px;
+}
+
+.tab{
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.chocked{
+    background-color: red;
+}
+
+.chocked a{
+    color: #fff;
+}

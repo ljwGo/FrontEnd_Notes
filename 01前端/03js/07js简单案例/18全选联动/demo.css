@@ -1,0 +1,29 @@
+ul {
+    padding: 0;
+    list-style-type: none;
+    user-select: none;
+}
+
+.shop-car{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.row{
+    flex-basis: 40px;
+    display: flex;
+    background: pink;
+}
+
+.row .item{
+    flex-basis: 33.3%;
+    flex-grow: 1;
+    line-height: 40px;
+    text-align: center;
+}
+
+.row:first-child{
+    background: purple;
+    color: #fff;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount">
+    <p>count: {{ count }}</p>
+    <p>double: {{ increament(count)}}</p>
+    <!-- 在模板中最好不要使用会改变组件数据或者含有异步方法的方法 -->
+    <!-- 形成了递归 -->
+    <p>changeValueInModel: {{ changeValue(count) }}</p>
+  </div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          count: 2
+        }
+      },
+      methods: {
+        increament(n){
+          return n*2
+        },
+        changeValue(){
+          console.log("改变了值:"+this.count);
+          this.count += 1;
+          return this.count
+        }
+      }
+    }).mount("#mount")
+  </script>
+</body>
+</html>

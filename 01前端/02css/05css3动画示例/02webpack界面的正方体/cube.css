@@ -1,0 +1,132 @@
+/* @keyframes rotate {
+  使用css3的动画, 好像做不到在每一次动画前都加入延迟
+  from {
+    transform: rotateX(-30deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-30deg) rotateY(90deg);
+  }
+} */
+
+body {
+  /* 不需要这个 perspective: 300px; */
+  background-color: #666;
+}
+
+.out-cube-center {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg);
+  transition: all 1s;
+  /* animation-name: rotate;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; */
+}
+
+.one-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  background-color: #8dd6f980;
+  transform: rotateX(-30deg);
+  border: 1px solid #fff;
+  /* 让不同面在切换时,边框改变得更自然 */
+  transition: .8s border;
+}
+
+/* 外正方式的4个面 */
+.one-face:nth-child(1) {
+  border-width: 1px 6px 6px 1px;
+  transform: rotateY(45deg) translateZ(50px);
+  -webkit-transform: rotateY(45deg) translateZ(50px);
+}
+
+.one-face:nth-child(2) {
+  transform: rotateY(135deg) translateZ(50px);
+  -webkit-transform: rotateY(135deg) translateZ(50px);
+}
+
+.one-face:nth-child(3) {
+  transform: rotateY(225deg) translateZ(50px);
+  -webkit-transform: rotateY(225deg) translateZ(50px);
+}
+
+.one-face:nth-child(4) {
+  border-width: 1px 1px 6px 6px;
+  transform: rotateY(315deg) translateZ(50px);
+  -webkit-transform: rotateY(315deg) translateZ(50px);
+}
+
+/* 外正方形的底面 */
+.button-face {
+  transform: rotateX(90deg) rotateZ(45deg) translateZ(-50px);
+}
+
+/* 外正方形的顶面 */
+.roof-face {
+  transform: rotateX(90deg) rotateZ(45deg) translateZ(50px);
+  border-width: 6px 1px 1px 6px;
+}
+
+.in-cube-center {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: calc(50% - 29px);
+  left: calc(50% - 25px);
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg);
+  transition: all 1s;
+}
+
+.small-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  transform: rotateX(-30deg);
+  border: 1px solid #fff;
+  background-color: #175d96;
+}
+
+.small-face:nth-child(1) {
+  transform: rotateY(45deg) translateZ(25px);
+  -webkit-transform: rotateY(45deg) translateZ(25px);
+}
+
+.small-face:nth-child(2) {
+  transform: rotateY(135deg) translateZ(25px);
+  -webkit-transform: rotateY(135deg) translateZ(25px);
+}
+
+.small-face:nth-child(3) {
+  transform: rotateY(225deg) translateZ(25px);
+  -webkit-transform: rotateY(225deg) translateZ(25px);
+}
+
+.small-face:nth-child(4) {
+  transform: rotateY(315deg) translateZ(25px);
+  -webkit-transform: rotateY(315deg) translateZ(25px);
+}
+
+/* 小正方形的顶面 */
+.small-face:nth-child(5) {
+  transform: rotateX(90deg) rotateZ(-45deg) translateZ(25px);
+  -webkit-transform: rotateX(90deg) rotateZ(-45deg) translateZ(25px);
+}
+
+/* 小正方形的底面 */
+.small-face:nth-child(6) {
+  transform: rotateX(90deg) rotateZ(-45deg) translateZ(25px);
+  -webkit-transform: rotateX(90deg) rotateZ(-45deg) translateZ(25px);
+}

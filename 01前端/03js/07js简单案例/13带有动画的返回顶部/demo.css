@@ -1,0 +1,46 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.sidebar{
+    position: absolute;
+    right: 0;
+    top: 60%;
+    background-color: pink;
+}
+
+.sidebar li{
+    width: 80px;
+    height: 50px;
+}
+
+.sidebar li a:hover{
+    color: red;
+}
+
+[class^=banner]{
+    width: 80%;
+    margin: 0 auto 40px;
+}
+
+.banner1{
+    height: 200px;
+    background: green;
+}
+
+.banner2{
+    height: 800px;
+    background: red;
+}
+
+.banner3{
+    height: 400px;
+    background-color: aqua;
+}

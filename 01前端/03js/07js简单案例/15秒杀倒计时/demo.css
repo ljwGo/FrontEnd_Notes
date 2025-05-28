@@ -1,0 +1,15 @@
+.time-box{
+    margin: 0 auto;
+    display: flex;
+    width: 150px;
+    height: 50px;
+}
+
+.time-box div{
+    margin: 10px;
+    color: #fff;
+    background: #333;
+    flex: 1;
+    line-height: 30px;
+    text-align: center;
+}

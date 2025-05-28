@@ -1,0 +1,72 @@
+/*这是最初的演示*/
+.container {
+    /*这是在声明一个容器*/
+    display: flex;
+
+    /*这里改变主轴为y轴*/
+    /*flex-direction: row;*/
+
+    /*这里设置子项目在主轴上的排列方式*/
+    /*justify-content: center;*/
+
+    /*设置换行*/
+    /*flex-wrap: wrap;*/
+
+    /*这里设置单行的子项目在侧轴上的排列方式*/
+    /*align-items: center;*/
+
+    /*这里设置多行子项目目在侧轴上的排列方式*/
+    /*align-content: center;*/
+
+    /*这里是便捷写法*/
+    /*flex-flow: column wrap;*/
+
+    height: 200px;
+    width: 200px;
+    background: pink;
+}
+
+.item {
+    /*这是固定死长度的*/
+    /*height: 50px;*/
+    /*width: 50px;*/
+
+    /*由于主轴是x轴,所以这个设置会覆盖width的值*/
+    /*flex-basis: 20px;*/
+
+    /*设置在主轴和侧轴上所占的分数*/
+    /*flex: 1;*/
+
+    /*这里设置了百分比,表示所占据一行的比例*/
+    /*flex: 50%;*/
+
+    /*background: purple;*/
+}
+
+/* 寻找到所有container类下的第一个div */
+/*.container div:nth-child(1){*/
+/*    align-self: center;*/
+/*    background: red;*/
+/*}*/
+
+/* 寻找到所有container类下的第三个div */
+/*.container div:nth-child(3){*/
+/*    justify-self: flex-end;*/
+/*    background: red;*/
+/*}*/
+
+.container div:first-child{
+    flex-basis: 100px;
+    /*flex-grow: 3;*/
+    flex-shrink: 0;
+    background: red;
+    height: 50px;
+}
+
+.container div:last-child{
+    flex-basis: 150px;
+    /*flex-grow: 2;*/
+    flex-shrink: 0;
+    background: deepskyblue;
+    height: 50px;
+}

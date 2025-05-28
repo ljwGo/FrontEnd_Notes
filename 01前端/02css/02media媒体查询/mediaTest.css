@@ -1,0 +1,25 @@
+div {
+    width: 100%;
+    height: 50px;
+}
+
+/*!*当设备宽度小于299px时,生效*!*/
+/*@media screen and (max-device-width: 299px){*/
+/*    div {*/
+/*        background: red;*/
+/*    }*/
+/*}*/
+
+/*!*当设备大小在300px到399px之间*!*/
+/*@media screen and (min-device-width:300px) and (max-device-width: 399px){*/
+/*    div {*/
+/*        background: yellow;*/
+/*    }*/
+/*}*/
+
+/*!*当设备大小大于400px*!*/
+/*@media screen and (min-device-width: 400px){*/
+/*    div {*/
+/*        background: blue;*/
+/*    }*/
+/*}*/

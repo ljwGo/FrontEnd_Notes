@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动框</title>
+    <style>
+        .roll_window{
+            width: 225px;
+            height: 225px;
+            overflow: hidden;
+        }
+        img{
+            float:left;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="roll_window">
+        <img src="./image/p1.jfif" alt="描述？" title="凯尔希" id="p1">
+        <img src="./image/p2.jfif" alt="描述？" title="黑姐姐">
+    </div>
+    <script>
+        var p1 = document.getElementById('p1');
+        var sum = 0;
+        var time = setInterval(function(){
+            if(sum<=230){
+                console.log('程序被执行了')
+                p1.style.left = `${sum}px`;
+                sum++;
+            }
+        },25)
+    </script>
+</body>
+</html>

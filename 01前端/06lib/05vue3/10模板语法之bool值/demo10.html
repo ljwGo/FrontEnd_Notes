@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <!-- vue中属性如果绑定除空字符串外所有falsy(什么是falsy, 查看文档),该属性将会被忽略 -->
+  <!-- 注: 这个例子是错误的, 属性是值必须为bool, 该规则才生效 -->
+  <div id="mount">
+  </div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          testList: [1, true, [1,2], {test: "test"}, "string", NaN, undefined, null, '', false]
+        }
+      },
+      template: `
+        <ol>
+          <li 
+            v-for="item in testList"
+            v-bind:property="item"
+          >
+            propertyValue: {{item}}
+          </li>
+        </ol>
+      `
+    }).mount("#mount")
+  </script>
+</body>
+</html>

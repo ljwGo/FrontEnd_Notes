@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <!-- v-if是真正的条件渲染,如果为假,则什么不做 -->
+  <!-- v-show仅仅是改变标签的display的属性 -->
+  <!-- 频繁切换使用v-show, 较少切换使用v-if -->
+  <!-- 不知道用什么就用v-show, 要分支就用v-if -->
+  <div id="mount">
+    <ol>
+      <li v-if="vifSeen">我是v-if</li>
+      <li v-else-if="velseifSeen">我是v-else-if</li>
+      <li v-else>我是v-else</li>
+      <li v-show="vshowSeen">我是v-show</li>
+      <!-- 可以使用template标签, 来包裹多个标签 -->
+      <template v-if="templateSeen">
+        <li>template li01</li>
+        <li>template li02</li>
+        <li>template li03</li>
+      </template>
+    </ol>
+  </div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          templateSeen: true,
+          vifSeen: false,
+          velseifSeen: true,
+          velseSeen: true,
+          vshowSeen: true,
+        }
+      }
+    }).mount("#mount")
+  </script>
+</body>
+</html>

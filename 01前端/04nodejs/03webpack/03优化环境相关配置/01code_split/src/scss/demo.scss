@@ -1,0 +1,13 @@
+$images: "../images/akari.jpg" "../images/1.jpg" "../images/2.jpg";
+
+@each $image in $images{
+    $i: index($images, $image);
+    div:nth-child(#{$i}){
+        @if $i != 1{
+            background-image: url($image);
+            height: 100px;
+            width: 200px;
+            display: flex;
+        }
+    }
+}

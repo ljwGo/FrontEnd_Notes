@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount">
+    <!-- v-bind的缩写 -->
+    <a :href="url"></a>
+    <!-- v-on的缩写 -->
+    <button @click="func">点击我</button>
+  </div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          url: "http://www.baidu.com",
+        }
+      },
+      methods: {
+        func(){
+          console.log("click events triggle")
+        }
+      }
+    }).mount("#mount")
+  </script>
+</body>
+</html>

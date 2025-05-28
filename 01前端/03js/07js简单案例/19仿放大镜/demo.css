@@ -1,0 +1,32 @@
+.show-area{
+    position: relative;
+    top: 100px;
+    left: 100px;
+}
+
+.show-image{
+    border: 5px solid #ccc;
+    box-sizing: border-box;
+    width: 310px;
+    overflow: hidden;
+}
+
+.cover-bg{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: yellow;
+    opacity: .5;
+}
+
+.big{
+    position: absolute;
+    top: 0;
+    left: 310px;
+    width: 400px;
+    height: 400px;
+    background: url("./images/21ecf8ce98e088c46b9a0b2ae2e21f1cfa10376f.jpg@515w_290h_1c_100q.webp") no-repeat;
+    background-size: 1200px;
+}

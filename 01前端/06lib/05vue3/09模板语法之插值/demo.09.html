@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <!-- vue的模板语法是基于html的(我理解为, vue提供了环境,让浏览器能够识别一些特殊的标识符和标签) -->
+  <!-- 基于字符串的模板语法, 是经过处理, 将文本字符串转换的部分, 是原生浏览器就能识别的 -->
+  <div id="mount">
+    <!-- 使用v-once时, 只插入一次值, 之后变量改变也不会改变 -->
+    <div>common: {{count}}</div>
+    <div v-once>v-once: {{count}}</div>
+    <!-- 插入的值会被解释为 普通文本 -->
+    <!-- 使用v-html可以让插入的值被 作为html解析 -->
+    <div>common: {{html}}</div>
+    <!-- 慎用v-html, 因为这个很可能导致xss攻击 -->
+    <div>v-html: <span v-html="html"></span></div>
+  </div>
+
+  <div id="expression">
+    <!-- vue的插值允许使用 *表达式* -->
+    <div v-once>v-once-expression: {{num + "我是表达式哦"}}</div>
+    <div v-once>v-once-expression(三元): {{num ? "yes": "no"}}</div>
+  </div>
+  <script>
+   Vue.createApp({
+      data(){
+        return {
+          count: 0,
+          html: "<span style='color:red;'>我是一段文本</span>"
+        }
+      },
+      mounted(){
+        setInterval(()=>{
+          this.count += 1
+        }, 1000)
+      }
+    }).mount("#mount")
+    Vue.createApp({
+      data(){
+        return {
+          num: 0
+        }
+      }
+    }).mount("#expression")
+  </script>
+</body>
+</html>

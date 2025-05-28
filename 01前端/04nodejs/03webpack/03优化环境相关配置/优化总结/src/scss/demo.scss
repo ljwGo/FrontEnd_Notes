@@ -1,0 +1,11 @@
+@for $i from 2 through 3{
+  div:nth-child(#{$i}){
+    @if $i == 2{
+      background-color: yellow;
+    }@else{
+      background-color: blue;
+    }
+    width: 500px;
+    height: 500px;
+  }
+}

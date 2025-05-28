@@ -1,0 +1,19 @@
+a {
+  text-decoration: none;
+}
+
+ul,ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.clearfix::after{
+  content: '';
+  display: block;
+  clear: both;
+}

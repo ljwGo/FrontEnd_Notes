@@ -1,0 +1,1 @@
+console.log("预加载: demo5.js已经载入了!!!")

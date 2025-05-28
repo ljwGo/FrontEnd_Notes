@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>jsonp方式的ajax</button>
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+
+    <script>
+        var button = document.querySelector('button')
+        var textarea = document.querySelector('textarea')
+
+        // 遇坑,必须是动态创建的script
+        button.addEventListener('click', function(){
+            var script = document.createElement('script')
+            script.src = './demo.js'
+            document.body.appendChild(script)
+            console.log("test");
+            // 坑2, 因为此时事件没有执行完毕,事件的优先级比引入的脚本优先级高,当前还没有data数据
+            // console.log(data)
+        })
+    </script>
+
+    <!-- 坑三 -->
+    <script>
+        // console.log(data)
+        // 引入脚本的数据前
+        // 这部分代码在加载页面时就执行完毕了
+        // 点击触发事件获取脚本数据后,无法对数据进行处理
+
+        // 解决方法,使用函数
+        // 自定义对数据的处理方式(回调函数)
+        function handle(data){
+            console.log(data)
+        }
+    </script>
+</body>
+</html>

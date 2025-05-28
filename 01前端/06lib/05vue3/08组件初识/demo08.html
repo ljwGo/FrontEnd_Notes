@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount">
+    <!-- 这样使用组件和传入参数(将变量与组件的自定义属性绑定) -->
+    <!-- 注意!!!, 这一点很坑, dom解析时, 浏览器会将标签和属性中的大写字母转换为小写, 同时不能够有空格-->
+    <!-- customComponent会被替换为custom-component(这一步不知道是怎么完成的) -->
+    <!-- 有很多需要注意的地方, 比如template和挂载点的html不共存; 不支持,绑定多个属性 -->
+    <custom-component v-bind:parameter01="one" v-bind:parameter02="two">
+
+    </custom-component>
+  </div>
+  <script>
+    const customComponent = {
+      // 可以理解为传参, 也可以理解为自定义属性
+      props: ['parameter01', 'parameter02'],
+      template: `
+        <div>
+          我是组件的内容哦!!!
+          我接收到父组件传递的参数为
+          para01: {{parameter01}},
+          para02: {{parameter02}}
+        </div>
+      `
+    }
+    Vue.createApp({
+      data(){
+        return {
+          one: 1,
+          two: 2,
+        }
+      },
+      components: {
+        customComponent
+      },
+    }).mount("#mount")
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 在浏览器中使用在线得到的babel转换jsx语法 -->
+    <!-- 要在浏览器使用import, 需要type="module", 不能读取本地文件 -->
+    <!-- <script type="module">
+        import { createRoot } from 'https://esm.sh/react-dom@18/client';
+        import { useState } from 'https://esm.sh/react@18/hooks';
+        
+        window.createRoot = createRoot;
+        window.useState = useState;
+    </script> -->
+    <div id="app">
+    </div>
+    <!-- 指明使用babel转换jsx语法 -->
+    <script type="text/babel" src="./index_cdn.js"></script>
+</body>
+
+</html>

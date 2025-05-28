@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount"></div>
+  <script>
+    // ref指定的值, 将出现在实例的$refs属性中, 可以通过$refs直接操作对应标签和组件
+    const Component01 = {
+      data(){
+        return {
+          counter: 0,
+        }
+      },
+      template: `
+        <div>我是组件, counter:{{counter}}</div>
+      `,
+      methods: {
+        Add(){
+          this.counter++;
+        }
+      }
+    }
+    
+    Vue.createApp({
+      template: `
+        <input ref="accountInput">
+        <input>
+        <button @click='setStatic'>重置第一个input框的值</button>
+        <component01 ref="component01">
+        </component01>
+        <button @click='addFromFatherCom'>从父组件访问子组件的方法,增加一</button>
+      `,
+      methods: {
+        setStatic(){
+          this.$refs.accountInput.value="default value"
+        },
+        addFromFatherCom(){
+          this.$refs.component01.Add();
+        }
+      },
+      components: {
+        Component01
+      }
+    }).mount("#mount");
+
+    /* 以下来自手册
+      $refs 只会在组件渲染完成之后生效。
+      这仅作为一个用于直接操作子元素的“逃生舱”
+      ——你应该避免在模板或计算属性中访问 $refs。
+
+      我的理解是, ref相当于直接操作组件和标签元素(tag.attr)
+      这些必须在组件创建成功并挂载时生效, 否则你将访问到undefined
+      模板和计算属性, 可能在未渲染前就进行解析了
+    */
+  </script>
+</body>
+</html>

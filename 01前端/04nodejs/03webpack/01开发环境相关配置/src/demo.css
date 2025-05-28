@@ -1,0 +1,6 @@
+/* css中变量的使用方式, 而且变量具有作用域 */
+div:first-child{
+    --c: red;
+    background-color: var(--c);
+    /* background-color: red; */
+}

@@ -1,0 +1,46 @@
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: #222;
+}
+
+.big_box{
+    width: 400px;
+    height: 300px;
+    margin: 100px auto 0;
+    background: pink;
+}
+
+.sidebox {
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+
+.sidebox li{
+    height: 25%;
+    width: 100%;
+    line-height: 75px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.image_show{
+    float: left;
+    width: 75%;
+}
+
+.image_show a img{
+    width: 300px;
+    height: 300px;
+}
+
+.current{
+    background: red;
+    color: #fff;
+}

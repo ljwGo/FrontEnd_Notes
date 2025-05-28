@@ -1,0 +1,16 @@
+div {
+    width: 100px;
+    height: 100px;
+}
+
+div:first-child{
+    background: red;
+}
+
+div:nth-child(2){
+    background: pink;
+}
+
+div:nth-child(3){
+    background: yellow;
+}

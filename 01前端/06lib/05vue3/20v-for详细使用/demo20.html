@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount">
+    <ol>
+      <!-- 传入数组 -->
+      <li v-for="item in items">{{ item.name }}</li>
+      <!-- 还能接受索引 -->
+      <li v-for="(item, index) in items">{{ index }}: {{ item.name }}</li>
+    </ol>
+    <ul>
+      <!-- 传入对象时, 第一个记得是值, 还支持索引 -->
+      <li v-for="(value, key, index) in objs">{{index}}. {{key}}: {{value}}</li>
+    </ul>
+    <!-- 在使用v-for时,最好能够添加一个key属性, 用来使Vue跟踪每一个节点, 详情我也不知道, 还是参考手册中的 维护状态 一项 -->
+    <ol>
+      <!-- 可以使用除对象,数组和symbol外的其它基本数据类型 -->
+      <li v-for="(item, index) of items" :key="index">{{item}}</li>
+    </ol>
+    <!-- v-for和组件使用. 注意,默认情况下,不会传入遍历的值给组件 -->
+    <component v-for="i in 2" :i="i">
+    </component>
+    <!-- v-for和v-if使用要慎重, 因为v-if的优先级比v-for要高 -->
+    <!-- 要小心到底是和v-for同级, 还是给组件子元素使用v-if -->
+    <component v-for="i in 6" :i="i">
+
+    </component>
+  </div>
+  <script>
+    const component = {
+      props: ['i'],
+      template: `
+        <p v-if="i % 2 === 0">我是第{{i}}个组件的内容</p>
+      `
+    }
+
+    Vue.createApp({
+      data(){
+        return {
+          items: [{name: "lisi"}, {name: "zhangsan"}],
+          objs: {
+            name: "张三",
+            age: 19,
+            gander: "male",
+          }
+        }
+      },
+      components: {
+        component
+      }
+    }).mount("#mount")
+  </script>
+</body>
+</html>

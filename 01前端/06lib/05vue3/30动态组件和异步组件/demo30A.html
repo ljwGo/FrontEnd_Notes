@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <style>
+    .tab{
+      float: right;
+      height: 100px;
+      width: 33.3%;
+    }
+    .clearfix:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    .current-tab{
+      background-color: red;
+      color: #fff;
+    }
+    .selectTab{
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="mount"></div>
+  <script>
+    // 使用keep-alive就能够缓存已经渲染过的动态组件了
+    const Component01 = {
+      template: '<div>我是组件一</div>',
+    };
+    const Component02 = {
+      template: '<div>我是组件二</div>',
+    };
+    const Component03 = {
+      data(){
+        return {
+          currentArticle: '',
+          articles: [
+            {id: 0, title:'step01', content: 'learn vue'},
+            {id: 1, title:'step02', content: 'learn vue more'},
+            {id: 2, title:'step03', content: 'more...'},
+          ]
+        }
+      },
+      template: `
+        <ol>
+          <li 
+          v-for="(article, index) of articles" 
+          :key="article.id"
+          @click="currentArticle=article.content"
+          :class="'selectTab'"
+          >
+            {{article.title}}
+          </li>
+        </ol>
+        {{currentArticle}}
+      `,
+      created(){
+        this.currentArticle = this.articles[0].content;
+      }
+    };
+    const app = Vue.createApp({
+      data(){
+        return {
+          currentTab: 'Home',
+          tabs: ['Home', 'Shop', 'Community'],
+        }
+      },
+      template: `
+        <ol style="list-style:none;padding:0;margin:0;">
+          <li 
+          v-for="(tab, index) of tabs" 
+          :key="index" 
+          :class="['tab', {'current-tab': tab===currentTab}]"
+          @click="currentTab = tab"
+          >{{tab}}</li>
+        </ol>
+        // 在这里
+        <keep-alive>
+          <component :is="tabOnCurrentTab"></component>
+        </keep-alive>
+      `,
+      computed: {
+        tabOnCurrentTab(){
+          return "Component0" + (this.tabs.indexOf(this.currentTab) + 1);
+        }
+      },
+      components: {
+        Component01,
+        Component02,
+        Component03,
+      }
+    });
+    app.mount("#mount");
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="mount01"></div>
+  <div id="mount02"></div>
+  <div id="mount03"></div>
+  <div id="mount04"></div>
+  <div id="mount05"></div>
+
+  <script>
+    // 插槽占位, 使用组件中的slot标签
+    const myComponent01 = {
+      template: `
+        <div>我是组件原本的html</div>
+        <slot></slot>
+      `
+    };
+    const app = Vue.createApp({
+      template: `
+        <my-component01>
+          <span>我是父组件的内容, 我被嵌入到了组件的slot插槽中了</span>
+        </my-component01>
+      `,
+      components: {
+        myComponent01,
+      }
+    });
+    app.mount("#mount01");
+    
+    // 多个插槽的使用--name为插槽取名, v-slot指定嵌入的插槽
+      // 没有name参数的slot默认使用 default作为slot标签的名字
+      // 多个slot可以使用同一个name, 这将表示这几个插槽将插入同一类螺丝
+    const myComponent02 = {
+      template: `
+        <slot name="slot01"></slot>
+        <hr>
+        <slot name="slot02"></slot>
+      `
+    };
+    const app02 = Vue.createApp({
+      template: `
+        <my-component02>
+          <template v-slot:slot01>
+            <span>我被指明添加到slot01这个插槽中了</span>
+            <span>多个标签</span>
+          </template>
+          <template v-slot:slot02>
+            <span>我被指明添加到slot02这个插槽中了</span>
+          </template>
+        </my-component02>
+      `,
+      components: {
+        myComponent02,
+      }
+    });
+    app02.mount("#mount02");
+
+    // 嵌入html访问 组件的作用域 (用法 v-slot:插槽名="插槽prop别名") 为了显式避免名称污染
+      // 写在slot标签内的v-bind, 将视为插槽prop
+      // 插槽prop可以在有v-slot的标签内被访问
+    const myComponent03 = {
+      props: {
+        items: {
+          type: Array
+        }
+      },
+      template: `
+        <div v-for="(item, index) of items" :key="index">
+          <slot :item="item"></slot>
+        </div>
+      `
+    };
+    const app03 = Vue.createApp({
+      data(){
+        return {
+          items: ['learn vue...', 'cost more time', 'i dont know!!!'],
+        }
+      },
+      template: `
+        <my-component03 :items="items">
+          <template v-slot:default="obj">
+            <i>title</i>
+            <span style="color: red;">{{obj.item}}</span>
+          </template>
+        </my-component03>
+      `,
+      components: {
+        myComponent03,
+      }
+    });
+    app03.mount("#mount03");
+
+    // slot默认填充内容
+      // 可以给slot填充默认的内容,当父组件没有传入嵌入的内容时使用
+      const myComponent04 = {
+        template: `
+          <slot>我是插槽的默认内容哒!</slot>
+        `,
+      };
+      const app04 = Vue.createApp({
+        template: `
+          <my-component04></my-component04>
+        `,
+        components: {
+          myComponent04,
+        }
+      });
+      app04.mount("#mount04");
+    // #简写, #简写时后面的slot名必须显示写出来
+    const myComponent05 = {
+      template: "<slot></slot>",
+    };
+    Vue.createApp({
+      template: '<my-component05 #default="obj"><span>使用#简写哇</span></my-component05>'
+    }).mount("#mount05");
+  </script>
+</body>
+</html>

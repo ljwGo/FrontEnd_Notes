@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <!-- 发送get请求 -->
+     <textarea name="" id="" cols="30" rows="10"></textarea>
+     <button>点击发送get请求</button>
+     <button>点击发送post请求</button>
+     <button>超时就会自动取消的get请求</button>
+     <button>网络错误,取消ajax</button>
+     <button>发送get请求,服务器响应带有延时</button>
+     <button>手动取消ajax请求</button>
+     <button>使用节流阀,控制只有一个ajax请求触发</button>
+     <button>设置请求头</button>
+     <button>设置自动转换json格式的响应体数据</button>
+     <button>ie浏览器ajax缓存问题</button>
+    <script>
+        var btn1 = document.getElementsByTagName('button')[0]
+        var btn2 = document.getElementsByTagName('button')[1]
+        var btn3 = document.getElementsByTagName('button')[2]
+        var btn4 = document.getElementsByTagName('button')[3]
+        var btn5 = document.getElementsByTagName('button')[4]
+        var btn6 = document.getElementsByTagName('button')[5]
+        var btn7 = document.getElementsByTagName('button')[6]
+        var btn8 = document.getElementsByTagName('button')[7]
+        var btn9 = document.getElementsByTagName('button')[8]
+        var btn10 = document.getElementsByTagName('button')[9]
+        var textarea = document.querySelector('textarea')
+        var isSending = false
+
+        btn10.addEventListener('click', function(){
+            var xhr = new XMLHttpRequest()
+            // url改成这样,使得ie浏览器加载ajax请求时不适用缓存
+            xhr.open('GET', 'http://127.0.0.1:8080/ie?t=' + Date.now())
+            xhr.send()
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    if (xhr.status >= 200 && xhr.status <300){
+                        textarea.value = xhr.response
+                    }
+                }
+            }
+        })
+
+        btn9.addEventListener('click', function(){
+            var xhr = new XMLHttpRequest()
+            // 使用这个设置自动转换数据格式
+            xhr.responseType = 'json'
+            xhr.open('POST', 'http://127.0.0.1:8080/json')
+            xhr.send('id=100&&hhh=200')
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    if (xhr.status >= 200 && xhr.status <300){
+                        textarea.value = xhr.response
+                        console.log(xhr.response)
+                    }
+                }
+            }
+        })
+
+        // 有关跨域请求cors的内容可以参考手册https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS
+        btn8.addEventListener('click', function(){
+            var xhr = new XMLHttpRequest()
+            xhr.open('POST', 'http://127.0.0.1:8080/customHeader')
+            // 设置请求头键值对
+            xhr.setRequestHeader('name', 'ljw')
+            xhr.send('id=100&&hhh=200')
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    if (xhr.status >= 200 && xhr.status <300){
+                        textarea.value = xhr.response
+                        // 获取响应头键值对
+                        console.log(xhr.getAllResponseHeaders)
+                    }
+                }
+            }
+        })
+
+        // 使用节流阀,使得同一时间,只有一个ajax请求触发
+        btn7.addEventListener('click', function(){
+            // 如果没发送
+            if (!isSending){
+                // 正在发送
+                isSending = true
+                var xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://127.0.0.1:8080/timeout')
+            xhr.send()
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    // readyState状态码为4,表示当前已经接收到服务器的数据,当此ajax请求完毕
+                    // 结束发送
+                    isSending = false
+                    console.log('执行了状态码切换函数');
+                    if (xhr.status >= 200 && xhr.status <300){
+                        textarea.value += xhr.response
+                    }
+                }
+            }
+            }
+        })
+
+        // 设置全局对象
+        var globalxhr = new XMLHttpRequest()
+        btn6.addEventListener('click', function(){
+            // 手动取消ajax请求
+            globalxhr.abort()
+        })
+
+        btn5.addEventListener('click', function(){
+            globalxhr.open('GET', 'http://127.0.0.1:8080/timeout')
+            globalxhr.send()
+            globalxhr.onreadystatechange = function(){
+                if (globalxhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    if (globalxhr.status >= 200 && globalxhr.status <300){
+                        textarea.value = globalxhr.response
+                    }
+                }
+            }
+        })
+
+        btn4.addEventListener('click', function(){
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://127.0.0.1:8080/')
+            xhr.send()
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    if (xhr.status >= 200 && xhr.status <300){
+                        textarea.value = xhr.response
+                    }
+                }
+            }
+            // 网络等错误时出发的函数
+            xhr.onerror = function(){
+                alert('请检查您的网络是否通畅!!!')
+            }
+        })
+
+        btn3.addEventListener('click', function(){
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://127.0.0.1:8080/timeout')
+            xhr.send()
+            // 设置超时时间2秒,超时后没有接受响应将会取消,即使后来服务器成功发送数据,也不会接受
+            xhr.timeout = 2000
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    if (xhr.status >= 200 && xhr.status <300){
+                        textarea.value = xhr.response
+                    }
+                }
+            }
+            // 超时时,执行的事件
+            xhr.ontimeout = function(){
+                alert('ajax接收数据超时!!!')
+            }
+        })
+
+        btn1.addEventListener('click', function(){
+            // 使用XMLHttpRequest的步骤,实现ajax
+            // 生成对象
+            var xhr = new XMLHttpRequest()
+            // 初始化
+            xhr.open('GET', 'http://127.0.0.1:8080')
+            // 发送请求体,GET方法不能有请求体
+            xhr.send()
+            // 设置回调函数
+            xhr.onreadystatechange = function(){
+                // xhr对象有5中状态,用数字0,1,2,3,4表示,属性名为readyState
+                // xhr创建后readyState为0; open()函数调用后为1; send函数调用后为2; 接收部分数据后为3; 完全接受数据后为4
+                if (xhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    // xhr.status获取的是状态码
+                    if (xhr.status >= 200 && xhr.status <300){
+                        // xhr.response获取的是响应头的数据
+                        // console.log(xhr.response)
+                        textarea.value = xhr.response
+                    }
+                }
+            }
+        })
+
+        btn2.addEventListener('click', function(){
+            var xhr = new XMLHttpRequest()
+            xhr.open('POST', 'http://127.0.0.1:8080')
+            // 这里设置请求体数据
+            // xhr.send('我是请求体数据')
+            xhr.send('id=100&&hhh=200')
+            xhr.onreadystatechange = function(){
+                if (xhr.readyState === 4){
+                    console.log('执行了状态码切换函数');
+                    if (xhr.status >= 200 && xhr.status <300){
+                        textarea.value = xhr.response
+                    }
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

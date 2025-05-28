@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./jquery/jquery-3.5.1/jquery-3.5.1.js"></script>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+    <script>
+        $(function(){
+           $('.box').hover(function(){
+               // 鼠标悬停
+               $(this).css('border-radius','50%');
+           },function(){
+               // 鼠标离开
+               $(this).css('border-radius','0%');
+           });
+        });
+    </script>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>

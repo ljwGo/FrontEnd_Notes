@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <style>
+    .test{
+      color: red;
+    }
+    .test02{
+      color: green;
+    }
+    .test03{
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <!-- 类的添加和使用 -->
+  <div id="mount">
+    <!-- 使用方法一: 放入对象, key为类名, 值为bool类型, 表示类是否添加 -->
+    <span :class="{test: isActive}">v-bind利用对象添加类</span>
+    <button @click="toggleClass">点击切换class</button>
+    <!-- 使用方法二: 放入数组 -->
+    <span :class="[test02, test03]">v-bind利用数组添加类</span>
+    <!-- 使用方法三: 放入数组,数组中放入对象 -->
+    <span :class="[test02Class, test03Class]">v-bind中使用数组和对象变量的方式</span>
+    <!-- :class是添加类的方式, 不会改变原本拥有的类 -->
+    <span class="test" :class="test03"></span>
+    <!-- 当使用子组件时, 使用$attrs.class指定由子组件内部的哪个标签接收类 -->
+    <my-component class="test test03"></my-component>
+    <!-- 这个尝试使用v-bind -->
+    <my-component :class="classes"></my-component>
+  </div>
+  <script>
+    const myComponent = {
+      template: `
+        <p>我是子组件的p1标签</p>
+        <p :class="$attrs.class">我是子组件的p2标签</p>
+      `
+    }
+
+    Vue.createApp({
+      data(){
+        return {
+          isActive: false,
+          test02Class: {
+            test02: false
+          },
+          test03Class: {
+            test03: true
+          },
+          classes: [
+            "test",
+            "test02"
+          ]
+        }
+      },
+      methods: {
+        toggleClass(){
+          this.isActive = !this.isActive
+        }
+      },
+      components: {
+        myComponent
+      }
+    }).mount("#mount")
+  </script>
+</body>
+</html>

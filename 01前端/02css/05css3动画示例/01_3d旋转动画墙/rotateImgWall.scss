@@ -1,0 +1,42 @@
+@keyframes rotate{
+  from {
+    transform: rotateY(0deg);
+  }
+  to{
+    transform: rotateY(360deg);
+  }
+}
+
+body, html{
+  perspective: 1000px;
+}
+
+.rotate-img-wall {
+  position: absolute;
+  height: 100px;
+  width: 200px;
+  transform-style: preserve-3d;
+  top: calc(50% - 50px);
+  left: calc(50% - 100px);
+  animation: rotate 6s linear infinite;
+  -webkit-animation: rotate 6s linear infinite;
+}
+
+.img-item {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+}
+
+@for $i from 1 through 4{
+  .img-item:nth-of-type(#{$i}){
+    @if $i == 2 or $i == 3{
+      background-image: url("./test0" + #{$i} + ".jpg");
+    }@else{
+      background-image: url("./test0" + #{$i} + ".webp");
+    }
+    background-size: cover; // 为了更好地显示背景图片, 非cover可能图片显示不全
+    transform: rotateY($i * 90deg) translateZ(200px); // 必须先旋转, 再移动
+    -webkit-transform: rotateY($i * 90deg) translateZ(200px) ;
+  }
+}

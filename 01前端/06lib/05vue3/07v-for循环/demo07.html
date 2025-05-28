@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div>任务列表
+    <ol>
+      <li v-for="item in todolists">{{item.text}}</li>
+    </ol>
+  </div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          todolists: [
+            {text: '我要学习vue3', isDone: false},
+            {text: '我要学习操作系统', isDone: false},
+          ]
+        }
+      }
+    }).mount("div")
+  </script>
+</body>
+</html>

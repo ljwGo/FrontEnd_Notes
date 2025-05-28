@@ -1,0 +1,69 @@
+a{
+    text-decoration: none;
+    color: #333;
+}
+
+div:first-child{
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+}
+
+.model{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 300px;
+    border: 2px black solid;
+    z-index: 999;
+    background: #eee;
+    display: none;
+    user-select: none;
+}
+
+.model-head{
+    width: 100%;
+    height: 50px;
+    color: #222;
+    line-height: 50px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.account, .password{
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.account input, .password input{
+    line-height: 20px;
+    border: 2px lightskyblue solid;
+    outline: none;
+}
+
+.close-btn {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: red;
+    line-height: 40px;
+    text-align: center;
+}
+
+.bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #666;
+    opacity: .5;
+    z-index: 998;
+    display: none;
+}

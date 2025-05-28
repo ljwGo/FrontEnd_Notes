@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./jquery/jquery-3.5.1/jquery-3.5.1.js"></script>
+    <script>
+    // 类似于window.onload,但是比window.onload要好用,原因是ready事件可以编写多次，window.onload只能在同一个页面中编写一次，第二次会覆盖第一次的。
+    $(document).ready(function(){
+        console.log($)
+        let zan = 0;
+        $('#zan').on('click',function(){
+            $('#zan span').text(function(){
+                zan++;
+                let ret = parseInt($(this).text()) + 1;
+                if (zan>=3){
+                    $('#zan').off('click');
+                }
+                return ret;
+            });
+        });
+    });
+    // 入口函数可以简写
+    // $(function(){
+    //     console.log($)
+    //     let zan = 0;
+    //     $('#zan').on('click',function(){
+    //         $('#zan span').text(function(){
+    //             zan++;
+    //             let ret = parseInt($(this).text()) + 1;
+    //             if (zan>=3){
+    //                 $('#zan').off('click');
+    //             }
+    //             return ret;
+    //         });
+    //     });
+    // });
+    </script>
+</head>
+<body>
+    <button id="zan">点下赞(<span>10</span>)</button>
+    <button id="cai">踩一脚(<span>0</span>)</button>
+</body>
+</html>

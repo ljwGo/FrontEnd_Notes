@@ -1,0 +1,31 @@
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: deepskyblue;
+}
+
+/*给下拉菜单组*/
+.drop-menus-group{
+    border: 1px solid red;
+}
+
+/*下拉菜单*/
+.drop-items{
+    display: none;
+}
+
+/*下拉菜单标题*/
+.drop-menus{
+    margin-left: 20px;
+    float: left;
+}
+
+.clearfix::after{
+    content: "";
+    display: block;
+    clear: both;
+}

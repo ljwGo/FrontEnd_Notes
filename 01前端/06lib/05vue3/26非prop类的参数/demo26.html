@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <title>Document</title>
+  <style>
+    .test-class:before{
+      content: 'text!!!';
+      display: block;
+      background: red;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="mount">
+
+  </div>
+  <script>
+    // 非prop类型的参数, 将会被收录到组件的$attrs属性中, 比如class, style, id等
+    // const myComponent01 = {
+    //   template: `
+    //     <div>我是div标签哒
+    //       <button>点击我</button>
+    //     </div>
+    //   `
+    // };
+    // const app = Vue.createApp({
+    //   template: `
+    //     <my-component01 class="test-class" @click="showTarget"></my-component01>
+    //   `,
+    //   components: {
+    //     myComponent01,
+    //   },
+    //   methods: {
+    //     showTarget(e){
+    //       console.log(this);
+    //       console.log(e.target);
+    //     }
+    //   }
+    // })
+
+    // 对于只有一个根元素的组件, $attrs将默认挂载到这里, 绑定的事件也一样
+    // app.mount("#mount");
+
+    const myComponent02 = {
+      // 关闭将从父组件中传入的参数自动继承到子组件的根元素中(也就是开启自定义分配)
+      inheritAttrs: false,
+      template: `
+        <header>我是导航条</header>
+        <main :class="$attrs.class">我是主体内容</main>
+        <footer>我是页脚</footer>
+      `
+    };
+    const app02 = Vue.createApp({
+      template: `
+        <my-component02 class='test-class'></my-component02>
+      `,
+      components: {
+        myComponent02,
+      }
+    });
+
+    app02.mount("#mount");
+  </script>
+</body>
+</html>

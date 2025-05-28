@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount"></div>
+  <!-- 当组件树的深度很深时, 从根组件传递数据到叶组件, 通过props的话, 会走很多层 -->
+  <!-- provide和inject能够解决传递层级过深的问题 -->
+    <!-- 待解决: 无法实现多层组件的slot插槽传值, {{}}插值语法会在中间层被识别 -->
+  <script>
+    // const TodoItemCom = {
+    //   props: {
+    //     item: {
+    //       default: "defaultValue!!!"
+    //     }
+    //   },
+    //   template: '<li><slot :todo="item"></slot></li>',
+    //   created(){
+    //     console.log(this.item);
+    //   }
+    // };
+    // const ClearAllTaskCom = {
+    //   template: `
+    //     <button>清空列表</button>
+    //   `
+    // };
+    // const SetStaticCom = {
+    //   template: `
+    //     <button>恢复默认</button>
+    //   `
+    // };
+    // const TodoFooterCom = {
+    //   template: `
+    //     <hr>
+    //     <div>
+    //       <clear-all-task-com style="float:right;">
+    //       </clear-all-task-com>
+    //       <set-static-com style="float:right">
+    //       </set-static-com>
+    //     </div>
+    //   `,
+    //   components: {
+    //     ClearAllTaskCom,
+    //     SetStaticCom,
+    //   }
+    // };
+    // const TodoListCom = {
+    //   props: {
+    //     items: Array
+    //   },
+    //   // 连续传递时插槽模板时, 每过一层都会经过处理, 即处理{{}}插值的内容, 而不会到最后一层才处理
+    //   template: `
+    //     <ol>
+    //       <todo-item-com 
+    //       v-for="(item, index) of items"
+    //       :key="index" 
+    //       :item="item">
+    //       <template v-slot:default="{item}" slot-scope="{item}">
+    //         <slot></slot>
+    //       </template>
+    //       </todo-item-com>
+    //     </ol>
+    //   `,
+    //   components: {
+    //     TodoFooterCom,
+    //     TodoItemCom,
+    //   }
+    // };
+
+    // Vue.createApp({
+    //   data(){
+    //     return {
+    //       items: ['learn vue...', 'learn computer system', 'learn more...']
+    //     }
+    //   },
+    //   template: `
+    //     <todo-list-com :items="items">
+    //       <template v-slot:default slot-scope="{item}">
+    //         <span style="color:#fff; background-color:red;">{{item === undefined}}</span>
+    //       </template>
+    //     </todo-list-com>
+    //   `,
+    //   components: {
+    //     TodoListCom,
+    //   }
+    // }).mount("#mount");
+
+    const ComponentA = {
+      inject: ['value'],
+      template: `
+        <div>我是组件A, 我通过inject直接从父组件接收到了值{{value}}</div>
+      `,
+    };
+    const ComponentB = {
+      template: `
+      <component-a></component-a>
+      <div>我是组件B</div>
+      `,
+      components: {
+        ComponentA
+      },
+    };
+    const ComponentC = {
+      template:`
+      <component-b></component-b>
+      <div>我是组件C</div>
+      `,
+      components: {
+        ComponentB,
+      },
+    };
+
+    // Vue.createApp({
+    //   data(){
+    //     return {
+    //       value: "我是父组件中的值"
+    //     }
+    //   },
+    //   template: "<component-c></component-c>",
+    //   components: {
+    //     ComponentC,
+    //   },
+    //   // 提供data等组件实例的成员属性时，应该使用函数
+    //   // 静态字面量,可以直接使用键值对的方式
+    //   // provide: {
+    //   //   // 正确
+    //   //   value: "hahaha",
+    //   //   // 错误
+    //   //   valueError: this.$data.value,
+    //   // };
+    //   // 格式类似data
+    //   provide(){
+    //     return {
+    //       value: this.$data.value
+    //     }
+    //   }
+    // }).mount("#mount");
+
+    /* provide和inject的方式 是不相应的方式 也就是说provide只提供默认值 不会同步更新 */
+    Vue.createApp({
+      data(){
+        return {
+          value: "    我是父组件中的值"
+        }
+      },
+      template: "<component-c></component-c><input v-model='value'>",
+      components: {
+        ComponentC,
+      },
+      // 可以通过Vue的computed API将provide提供的值与inject注入的组件同步起来
+      provide(){
+        return {
+          value: Vue.computed(()=>{
+            this.$data.value;
+          })
+        }
+      }
+    }).mount("#mount");
+  </script>
+</body>
+</html>

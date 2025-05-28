@@ -1,0 +1,27 @@
+/*需要完成一个两边不变,中间部分自适应的案例*/
+
+/*整体*/
+body>div{
+    display: flex;
+}
+
+/*左边*/
+.left-side{
+    flex: 0 0 50px;
+    height: 50px;
+    background: red;
+}
+
+/*中间*/
+div>div:nth-child(2){
+    flex: 1 1 auto;
+    height: 50px;
+    background: pink;
+}
+
+/*右边*/
+.right-side{
+    flex: 0 0 100px;
+    height: 50px;
+    background: red;
+}

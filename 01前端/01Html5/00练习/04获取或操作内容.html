@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>js元素的获取和操作</title>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="box">
+        <p class="text">第一段文本</p>
+        <p class="text">第二段文本</p>
+    </div>
+    <script>
+        // 读取html内容
+        console.log($('.box').html());
+        console.log($('.box').text());
+
+        console.log($('.text'));
+        console.log($('.text').html()); //只会返回第一个元素的内容
+
+        //修改内容[可以写入html文本]
+        console.log($('.text').html("<span>修改的内容</span>"));
+        console.log($('.text').css("background-color","red"));
+
+        //修改内容[可以写入纯文本]
+        $('.text').text('<span>修改内容</span>');
+
+        //修改内容的特殊用法
+        // jQuery内部进行操作的时候,都是使用循环来完成的,一般称之为'隐式迭代'
+        $('.text').html(function(){
+            console.log(this); //this表示当前的dom对象
+            console.log($('this')); //把当前dom对象转换成jQuery对象
+            //return 'hello world'; //批量修改
+            return $(this).html()+'-----2020'
+        })
+
+
+        //读取属性
+        $("选择符").attr('属性名'); //获取非表单元素的属性,默认只会提取第一个元素的属性值
+        $('选择符').prop('属性名'); //表单元素的属性,只会提取第一个元素的属性值
+
+        //修改属性值
+        $('选择符').attr('属性名','属性值').attr('属性名','属性值').attr()
+        $('选择符').prop('属性名','属性值').prop('属性名','属性值').prop()
+        $('选择符').attr({'属性名':'属性值','属性名2':'属性值2'})
+
+        console.log($('.first').attr('checked')); //checked
+        console.log($('.first').prop('checked')); //true
+
+        // 这里可以看到jQuery可以把不断给获取到的元素不断调用别的方法,
+        // 这是因为jQuery内部实现了面向对象的链式调用,这个方法在python里面也可以使用
+        
+    </script>
+</body>
+</html>

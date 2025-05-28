@@ -1,0 +1,49 @@
+.main-context div {
+    height: 400px;
+    margin-bottom: 20px;
+}
+
+.main-context div:first-child {
+    background: red;
+}
+
+.main-context div:nth-child(2) {
+    background: purple;
+}
+
+.main-context div:nth-child(3) {
+    background: green;
+}
+
+.main-context div:nth-child(4) {
+    background: pink;
+}
+
+.lift-navigate {
+    position: absolute;
+    width: 50px;
+    height: 200px;
+    top: 70%;
+    right: 0;
+}
+
+.lift-navigate li{
+    height: 25%;
+    width: 100%;
+    border-bottom: 2px solid #777;
+    border-left: 2px solid #777;
+    border-right: 2px solid #777;
+    box-sizing: border-box;
+    line-height: 40px;
+    text-align: center;
+    background: pink;
+}
+
+.lift-navigate li:first-child{
+    border-top: 2px solid #777;
+}
+
+.current{
+    color: #fff!important;
+    background-color: red!important;
+}

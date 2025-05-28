@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 通过cdn的方式引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+     <!-- 发送get请求 -->
+     <textarea name="" id="" cols="30" rows="10"></textarea>
+     <button>点击发送axios请求</button>
+    <script>
+        var textarea = document.querySelector('textarea')
+        var button = document.querySelector('button')
+
+        button.addEventListener('click', function(){
+            // 这里只使用通用方法,其它方式参照手册
+            axios({
+                // url: 'http://127.0.0.1:8080/axios-server',
+                url: '/axios-server',
+                method: 'POST',
+                baseURL: 'http://127.0.0.1:8080',
+                // 在发送数据前，对数据进行自定义处理,类似钩子函数
+                transformRequest: function(data, headers){
+                    data += "发送前经过处理"
+                    return data
+                },
+                // 接收到的响应数据在交给then和catch前，进行转换
+                transformResponse: function(data){
+                    data += "发送后经过处理"
+                    return data
+                },
+                // 自定义请求头
+                headers: {
+                    name: 'ljw'
+                },
+                // 设置url参数
+                params: {
+                    name: 'ljw',
+                    password: '123',
+                },
+                // 请求体数据
+                data:'我是一段数据',
+                // 超时时间
+                timeout: 3000,
+            }).then(function(response){
+                console.log(response.status)
+                console.log(response.statusText)
+                console.log(response.data)
+                console.log(response.headers)
+                console.log(response.config)
+            })
+        })
+    </script>
+</body>
+</html>

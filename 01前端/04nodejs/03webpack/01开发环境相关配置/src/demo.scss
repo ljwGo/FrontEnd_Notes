@@ -1,0 +1,21 @@
+// scss中变量的定义方式
+$c: green;
+
+div:nth-child(2){
+    background-color: $c;
+}
+
+div{
+    height: 200px;
+    width: 200px;
+}
+
+
+$images: "./images/1.jpg" "./images/2.jpg" "./images/akari.jpg";
+
+@for $i from 1 through 3{
+    div:nth-child(#{$i}){
+        background: url(nth($images, $i)) no-repeat;
+        background-size: 200px;
+    }
+}

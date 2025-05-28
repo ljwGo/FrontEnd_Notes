@@ -1,0 +1,28 @@
+.comment-area{
+    width: 300px;
+    margin: 100px auto 0;
+}
+
+.comment-publish-bar{
+    position: relative;
+    margin: 0;
+    border: 3px solid #333;
+}
+
+.comment-publish-bar button {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.comment-publish-bar textarea{
+    outline-style: none;
+}
+
+.comments>li>a{
+    float: right;
+}
+
+.comments>li{
+    border-bottom: 3px solid #888;
+}

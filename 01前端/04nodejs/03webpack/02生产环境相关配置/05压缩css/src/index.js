@@ -1,0 +1,1 @@
+import sc1 from "./css/demo.scss"

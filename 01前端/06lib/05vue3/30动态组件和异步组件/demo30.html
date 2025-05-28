@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount"></div>
+  <div id="mount02"></div>
+  <script>
+    // 异步组件, 在需要时才从服务器加载的组件
+      // 失败了, 之后遇到再补充吧!!!
+    const app = Vue.createApp({
+      data(){
+        return {
+          asyncComName: '',
+        }
+      },
+      template: `
+        <button @click="asyncComName='asyncComponent01'">尝试加载异步组件并渲染</button>
+        <component :is="asyncComName"></component>
+      `
+    });
+    app.component('asyncComponent01', Vue.defineAsyncComponent(
+      ()=>{
+        new Promise((resolve, reject)=>{
+          // 执行异步任务
+          console.log("Promise对象内方法执行了!!!");
+          resolve({
+            template: `
+          <div>我是组件一</div>
+        `
+        });
+        })
+      }
+    ));
+    app.mount("#mount");
+
+    // 使用es2015+语法, .vue文件, 使用export default暴露语法
+    const app02 = Vue.createApp({
+      components: {
+        'asyncCom01': Vue.defineAsyncComponent(()=>{
+            import('./components/AsyncComponent.vue');
+          }
+        )
+      }
+    });
+  
+    /* suspense的使用参考文档吧, 实在不理解 */
+  </script>
+</body>
+</html>

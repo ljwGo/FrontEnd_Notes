@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input type="button" value="按钮">
+<input type="button" value="按钮">
+<input type="button" value="按钮">
+<input type="button" value="按钮">
+<input type="button" value="按钮">
+<script>
+    var btns = document.getElementsByTagName('input')
+    for (var i=0; i<btns.length; i++){
+        btns[i].onclick = function(){
+            // 为了实现排他算法, 需要先清空所有按钮的背景颜色
+            for (var i=0; i<btns.length; i++){
+                btns[i].style.backgroundColor = "rgb(239, 239, 239)"
+            }
+            this.style.backgroundColor = "pink";
+        }
+    }
+</script>
+</body>
+</html>

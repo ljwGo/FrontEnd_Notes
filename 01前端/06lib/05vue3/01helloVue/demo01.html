@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 有关安装使用, 参考手册当中的构建说明, 有很多vue的构建版本, cdn使用如下 -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <!-- 挂载点 -->
+  <div id="greeting">
+    {{ greeting }}
+  </div>
+  <script>
+    // 声明一个组件对象
+    const conponment = {
+      data: function(){
+        return {
+          greeting: "Hello welcome to Vue3!!!"
+        }
+      }
+    }
+    const app = Vue.createApp(conponment).mount("#greeting")
+  </script>
+</body>
+</html>

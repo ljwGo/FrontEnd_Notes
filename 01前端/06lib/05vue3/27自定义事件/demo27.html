@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+    实际的逻辑是
+      1) emits指定传入的事件名
+      2) 父组件传入事件(回调函数)
+      3) 子组件预定的事件调用这个回调函数
+      4) emits定义的规则函数调用
+  -->
+ <div id="mount">
+
+ </div>
+ <script>
+  //  // 自定义事件, 验证
+  //  const myComponent = {
+  //    props: ['password', 'confirmPassword'],
+  //    emits: {
+  //      // 验证自定义的mySubmit事件, 不符合条件时, Vue将抛出警告
+  //      'mySubmit': ({password, confirmPassword})=>{
+  //         if (password && confirmPassword){
+  //           return true;
+  //         }else{
+  //           return false;
+  //         }
+  //      }
+  //    },
+  //    // 注意这里是emit, 不是emits
+  //    template: `
+  //     <button @click="$emit('mySubmit', {password, confirmPassword})">提交</button>
+  //    `
+  //  }
+  //  Vue.createApp({
+  //   data(){
+  //     return {
+  //       password: '',
+  //       confirmPassword: '',
+  //     }
+  //   },
+  //   template: `
+  //     <div>password: <input type="text" v-model="password"></div>
+  //     <div>confirmPassword: <input type="text" v-model="confirmPassword"></div>
+  //     <my-component @my-submit="submit" :password="password" :confirmPassword="confirmPassword"></my-component>
+  //   `,
+  //   methods: {
+  //     submit(object){
+  //       console.log(object.password + " and " + object.confirmPassword);
+  //     }
+  //   },
+  //   components: {
+  //     myComponent,
+  //   }
+  //  }).mount("#mount");
+
+  // 单个组件中绑定多个v-model
+    /* 
+      我们知道, 组件中的v-model本质是利用组件的一个props属性和input监听事件做到的双向绑定
+      v-model="", 默认使用的是组件的modelValue的props属性和update:modelValue的自定义事件
+    */
+  // const myComponent02 = {
+  //   props: [
+  //     "value01",
+  //     "value02",
+  //   ],
+  //   emits: ["update:value01", "update:value02"],
+  //   template: `
+  //     <div>account: <input :value="value01" @input="$emit('update:value01', $event.target.value)"></div>
+  //     <div>password: <input :value="value02" @input="$emit('update:value02', $event.target.value)"></div>
+  //   `
+  // };
+  // const app02 = Vue.createApp({
+  //   data(){
+  //     return {
+  //       account: '',
+  //       password: '',
+  //     }
+  //   },
+  //   // v-model可以指定一个参数, 这个参数定义了作为跳板的prop和事件的名称
+  //     // v-model:value01="" 将得到value01的props和update:value01事件
+  //   template: ` 
+  //   <p>{{account}}</p>
+  //   <p>{{password}}</p>
+  //   <my-component02 v-model:value01="account" v-model:value02="password"></my-component02>
+  //   `,
+  //   // 等价于
+  //   /* 
+  //     <my-component02 
+  //     :value01="account" 
+  //     @update:value01="account = $event + '!'"
+  //     :value02="password"
+  //     @update:value02="password = $event + '!'"
+  //     >
+  //     </my-component02>
+  //   */
+  //   components: {
+  //     myComponent02,
+  //   }
+  // });
+  // app02.mount("#mount");
+
+  // 自定义修饰符
+    //capitalize, 将单词首字母大写
+    const myComponent03 = {
+      props: [
+        'modelValue',
+        'modelModifiers',
+      ],
+      emits: [
+        'update:modelValue',
+      ],
+      template: `
+        <div><input @input="capitalize"></div>
+      `,
+      // 再封装一层
+      methods:{
+        capitalize(e){
+          let value = e.target.value;
+          if (this.modelModifiers.capitalize === true){
+            value = value.charAt(0).toUpperCase() + value.slice(1);
+          };
+          this.$emit('update:modelValue', value);
+        }
+      },
+      created(){
+        console.log(this.modelModifiers);
+      }
+    };
+    Vue.createApp({
+      data(){
+        return {
+          firstName: '',
+        }
+      },
+      // v-model后的修饰符将传递给 子组件的一个modelModifiers的props
+      template: `
+        {{firstName}}
+        <my-component03 v-model.capitalize="firstName"></my-component03>
+      `,
+      components: {
+        myComponent03
+      }
+    }).mount("#mount")
+    //带参数的v-model, 对应的Modifiers名称为 arg + Modifiers
+    /* 老实说, 这样自定义挺不方便的, 复用性也低 */
+ </script> 
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <style>
+    .clearfix::after{
+      content: '';
+      clear: both;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="mount">
+    <!-- 组件复用 -->
+    <my-component></my-component>
+    <my-component></my-component>
+    <my-component></my-component>
+    <!-- 全局注册和局部注册(这部分还没详细学) -->
+    <!-- 组件传参 -->
+    <blog-post-component 
+      v-for="blog in blogs"
+      :title="blog.title"
+      :content="blog.content"
+      >
+    </blog-post-component>
+    <!-- 组件传入html内容 -->
+    <insert-html-component>
+      <!-- slot Vue的自定义标签,插槽的意思,父组件可以传入html内容,插槽用于接收 -->
+      这段文本来自父组件哦!
+    </insert-html-component>
+    <!-- 事件委托(子组件事件触发交由父组件定义事件处理器) -->
+    <!-- 事件委托支持传入一个参数 -->
+    <!-- 如果子组件使用事件委托时, 抛出一个参数, 父组件中的$event将接收这个参数 -->
+    <comment-area-component :style="{fontSize: fontSize + 'em'}" @submit-comment="submitComment" @bigger-font="fontSize += $event">
+    </comment-area-component>
+    <!-- 组件中使用v-model双向绑定 -->
+      <!-- 由于组件和应用实例处于不同的作用域,组件中的v-model不能够访问到应用实例(根组件)的数据 -->
+      <account-check-component
+        v-bind:account-in-com="accountInRoot"
+        @update-account="checkAccount"
+      >
+      </account-check-component>
+      <span>{{isExist}}</span>
+    <!-- dom中vue模板注意事项 -->
+      <!-- 简单的说, 由于浏览器解析html文档(dom文档)时, 一些默认行为(比如将大写转换为小写, 某些标签只能容纳特殊标签) -->
+      <!-- 比如select容纳option, table只能容纳tr, olul和li等 -->
+      <table>
+        <!-- 这将导致元素溢出 -->
+        <!-- <shop-car-component v-for="good of shopCars" :good="good"></shop-car-component> -->
+        <!-- 解决, is动态组件 -->
+        <!-- 有坑,必须加vue:前缀 -->
+        <tr is="vue:ShopCarComponent" v-for="good of shopCars" :good="good"></tr>
+      </table>
+    <!-- 动态组件 -->
+      <!-- 利用动态组件完成分页栏tab -->
+      <ul style="list-style: none;" class="clearfix">
+        <tab-component v-for="tab in tabs" :tab-title="tab" @click="currentTab = tab"></tab-component>
+      </ul>
+      <!-- 动态组件可以使用component标签进行占位, 这里就不需要加vue:前缀了 -->
+      <component :is="currentTabComponentName">
+      <!-- <component :is="'Tab'+currentTab+'Component'">这个无效, 还是用计算属性吧 -->
+      </component>
+  </div>
+  <script>
+    const myComponent = {
+      data(){
+        return {
+          count: 0
+        }
+      },
+      template: `
+        <p>{{count}}</p>
+        <button @click="valueAdd">增加</button>
+      `,
+      methods: {
+        valueAdd(){
+          this.count++;
+        }
+      }
+    };
+    const blogPostComponent = {
+      props: ["title", "content"],
+      template: `
+        <div style="text-align:center;"><h2>{{title}}</h2></div>
+        <p style="width:20px; height:100px;whilt-space: pre-line">{{content}}</p>
+      `
+    };
+    const commentAreaComponent = {
+      data(){
+        return {
+          comment: '',
+        }
+      },
+      emits: ['submitComment', 'biggerFont'],
+      template: `
+        <div>
+          <textarea cols=10 rows=10 v-model="comment"></textarea>
+          <button @click="$emit('biggerFont', 0.1)">放大字体</button>
+          <button @click="$emit('submitComment', comment)">提交</button>
+          <span>用于验证字体大小</span>
+        </div>
+      `
+    };
+    const AccountCheckComponent = {
+      props: ['accountInCom'],
+      template: `
+        <div>
+          <label for='account'>account: </label>
+          <input id='account' name='account' v-bind:value='accountInCom' @input="$emit('updateAccount', $event.target.value)">
+        </div>
+      `
+    };
+    const ShopCarComponent = {
+      props: ['good'],
+      template: `
+        <div>name: {{ good }}</div>  
+      `
+    }
+    const TabComponent = {
+      props: ['tabTitle'],
+      template: `<li style="float: left; height: 50px; width:120px;">{{tabTitle}}</li>`
+    }
+    const TabInterfaceComponents = [
+      {
+        template: "<div>我是home主页</div>"
+      },
+      {
+        template: "<div>我是personCenter页</div>"
+      },
+      {
+        template: "<div>我是community页</div>"
+      }
+    ]
+    const InsertHtmlComponent = {
+      template: `
+        <p>我是一段文本哇</p>
+        <slot></slot>
+      `
+    }
+
+    const app = Vue.createApp({
+      data(){
+        return {
+          blogs: [
+            {id: 1, title: "how to learn vue", content: "vue is difficult....................."},
+            {id: 2, title: "vue", content: "is difficult....................."},
+            {id: 3, title: "learn vue", content: "difficult....................."},
+          ],
+          // 这个是用来测试$event的
+          fontSize: 1,
+          isExistAccountArray: [
+            'lisi',
+            'zhangsan',
+            'wangwu',
+          ],
+          accountInRoot: '',
+          isExist: '',
+          shopCars: [
+            'apple',
+            'banana',
+            'peach',
+          ],
+          tabs: [
+            'Home',
+            'PersonCenter',
+            'Community',
+          ],
+          currentTab: 'Home'
+        }
+      },
+      // 子组件中的评论提交按钮的点击事件, 委托给父组件自定义(子组件不负责处理发送逻辑, 交由父组件中自定义处理)
+      methods: {
+        submitComment(comment){
+          // ajax提交请求
+          console.log(comment)
+        },
+        checkAccount(accountValue){
+          console.log(accountValue)
+          for (account of this.isExistAccountArray){
+            // 如果账户已经存在
+            if(accountValue === account){
+              this.isExist = true
+              return
+            }
+          }
+          this.isExist = false
+        }
+      },
+      computed:{
+        currentTabComponentName(){
+          return 'Tab' + this.currentTab + 'Component'
+        }
+      }
+    })
+
+    app.component('myComponent', myComponent);
+    app.component('blogPostComponent', blogPostComponent);
+    app.component('comment-area-component', commentAreaComponent);
+    app.component("AccountCheckComponent", AccountCheckComponent)
+    .component('ShopCarComponent', ShopCarComponent)
+    .component('TabComponent', TabComponent)
+    .component('TabHomeComponent', TabInterfaceComponents[0])
+    .component('TabPersonCenterComponent', TabInterfaceComponents[1])
+    .component('TabCommunityComponent', TabInterfaceComponents[2])
+    .component('InsertHtmlComponent', InsertHtmlComponent)
+    app.mount("#mount");
+  </script>
+</body>
+</html>

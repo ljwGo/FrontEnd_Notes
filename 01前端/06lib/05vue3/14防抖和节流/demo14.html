@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+</head>
+<body>
+  <!-- 有关防抖和节流的知识, 参考文章https://vue3js.cn/interview/JavaScript/debounce_throttle.html#%E4%B8%89%E3%80%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF -->
+  <!-- 本质是限制高频事件的触发频率, 提高性能 -->
+  <!-- 节流: 一段时间内只有一次事件执行 -->
+  <!-- 防抖: 一段时间后执行事件, 期间如果还有事件触发, 则重新计时 -->
+  
+  <!-- Vue本身没有防抖功能(为了使得Vue精简, 同时是实现防抖和节流的库很多, 也体现灵活) -->
+  <div id="mount"></div>
+  <div id="mount1"></div>
+  <div id="mount2"></div>
+  <!-- <script>
+    console.log(_)
+    console.log("debouncd" in _)
+
+    Vue.createApp({
+      data(){
+        return {
+          message: ""
+        }
+      },
+      methods: {
+        click: _.debounce(function(){
+          this.message = "我出现了!!!"
+        }, 5000) // 指定5秒后执行
+      },
+      template: `
+        <p>{{ message }}</p>
+        <p><button @click="click">执行</button></p>
+      `
+    }).mount("#mount")
+  </script> -->
+  <!-- <script>
+    // 测试, 防抖函数的问题
+    const component = {
+      data(){
+        return {
+          message: ""
+        }
+      },
+      methods: {
+        click: _.debounce(function(){
+          this.message = "我出现了!!!"
+        }, 5000) // 指定5秒后执行
+      },
+      template: `
+        <p>{{ message }}</p>
+        <p><button @click="click">执行</button></p>
+      `
+    }
+    Vue.createApp(component).mount("#mount")
+    Vue.createApp(component).mount("#mount1")
+    Vue.createApp(component).mount("#mount2")
+  </script> -->
+  <!-- 没能测试出问题, 这是手册中的内容--但是，这种方法对于可复用组件有潜在的问题，因为它们都共享相同的防抖函数。为了使组件实例彼此独立，可以在生命周期钩子的 created 里添加该防抖函数: -->
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          message: ""
+        }
+      },
+      methods: {
+        click: function(){
+          this.message = "我出现了!!!"
+        },
+      },
+      created(){
+        // 这里不需要预先声明
+        this.debouncedClick = _.debounce(this.click, 2000)
+      },
+      unmounted() {
+        this.debouncedClick.cancel()
+      },
+      template: `
+        <p>{{ message }}</p>
+        <p><button @click="debouncedClick">执行</button></p>
+      `
+    }).mount("#mount")
+  </script>
+</body>
+</html>

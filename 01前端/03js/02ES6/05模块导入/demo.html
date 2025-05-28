@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        //一个文件里有且仅有一个 默认 导出，但是可以有任意多个 具名 导出。
+        // 引入方式一, 引入模块
+        // 练习中出现了跨域问题,使用liveServer插件可以解决
+        import * as alias from "./demo1.js"
+        console.log(alias)
+        console.log(alias.n)
+        console.log(alias.func())
+        // 引入方式二,结构方式
+        import {a as newa, b as newb} from "./demo2.js"
+        console.log(newa)
+        console.log(newb)
+        // 引入方式三,相当于引入默认暴露值
+        // 也可以写成
+        // import {default as aliasName} from "./demo3.js"
+        import defaultValue from "./demo3.js"
+        console.log(defaultValue)
+    </script>
+</body>
+</html>

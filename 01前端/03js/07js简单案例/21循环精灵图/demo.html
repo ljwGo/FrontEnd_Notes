@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        ul{
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            margin-right: 20px;
+            background : url("./tabbar.png") no-repeat;
+            background-size: 32px;
+        }
+    </style>
+
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        // 获取元素
+        var liEles = document.querySelector('ul').querySelectorAll('li')
+        // 循环每个元素
+        for (var i = 0; i<liEles.length; i++){
+            // 修改背景图片的位移
+            liEles[i].style.backgroundPosition = "0 -" + i*32 + "px"
+        }
+    </script>
+</body>
+</html>

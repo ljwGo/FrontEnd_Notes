@@ -1,0 +1,28 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#div1{
+    width: 100px;
+    height: 100px;
+    background: red;
+}
+
+#div2{
+    position:relative;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: purple;
+}
+
+#div3{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top:100px;
+    left:100px;
+    background: pink;
+}

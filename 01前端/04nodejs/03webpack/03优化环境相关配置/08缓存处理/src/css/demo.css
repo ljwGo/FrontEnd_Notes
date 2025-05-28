@@ -1,0 +1,9 @@
+div:first-child{
+    /* background-color: red; */
+    height: 599px;
+    width: 599px;
+    display: flex;
+    background-attachment: fixed;
+    backface-visibility: hidden;
+    background: url('../images/akari.jpg') no-repeat
+}

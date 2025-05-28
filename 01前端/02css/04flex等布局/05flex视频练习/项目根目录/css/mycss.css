@@ -1,0 +1,647 @@
+/*让body水平居中*/
+body{
+    /*这是为了让搜索框水平居中,而将body设置为以定位*/
+    /*position: relative;*/
+    color: #000;
+    /*组织水平滚动条出现*/
+    overflow-x: hidden;
+    /*防止文字点击后高亮高亮显示*/
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-text-size-adjust: none;
+    -moz-user-select: none;
+    max-width: 540px;
+    min-width: 320px;
+    margin: 0 auto;
+    background: #f4f4f4;
+}
+
+/*取消默认a标签的效果*/
+a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #333;
+}
+
+/*取消默认ul标签的效果*/
+ul {
+    height: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*!*让搜索框定位在上方,并且水平居中的方法一:*!*/
+/*.search-index{*/
+/*    width: 100%;*/
+/*    height: 50px;*/
+/*    background: #fff;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*}*/
+
+/*让搜索栏水平居中的方式二*/
+.search-index{
+    width: 100%;
+    height: 50px;
+    background: #fff;
+    /*fixed是以屏幕宽度为基准的,和所有父节点都无关*/
+    position: fixed;
+    z-index: 12;
+    /*设置定位后如果不设置top或left,是不脱离文档流的*/
+    top: 0;
+    left: 50%;
+    /*设置定位后,margin: 0 auto让元素水平居中就失效了*/
+    /*margin: 0 auto;*/
+    max-width: 540px;
+    min-width: 340px;
+    /*-是往左移动的意思,这句话的意思是往左移动自身宽度的50%*/
+    transform: translate(-50%);
+}
+
+/*设置搜索框*/
+.search-box{
+    height: 32px;
+    border: #0086f6 solid 2px;
+    border-radius: 16px;
+    /*默认的height和width是设置的内容的大小,下面改成跟padding,border和内容的总和*/
+    box-sizing: border-box;
+    margin: 12px 12px 6px;
+    line-height: 28px;
+    align-content: center;
+    /*font-family: h5_home_v1!important;*/
+}
+
+/*搜索栏的放大镜*/
+.search-box span::before{
+    content: "\e92a";
+    margin-right: 12px;
+}
+
+/*搜索框中的文字*/
+.search-box span{
+    margin-left: 12px;
+    font-size: 15px;
+    color: #999;
+}
+
+/*设置主导航栏的大小*/
+.main-nav-wrap{
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: 184px;
+    width: 100%;
+    margin-top: 50px;
+    /*background: red;*/
+    padding: 6px 12px 2px;
+    background: #fff;
+}
+
+/*主导航栏的每一系列*/
+.nav-list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.nav-list [class^=nav] {
+    flex: 1;
+}
+
+[class^=nav]>a{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    height: 100%;
+}
+
+/*选中主导航页上所有子项所用的精灵图*/
+[class^=main-nav-image]{
+    width: 28px;
+    height: 28px;
+    background: url("../images/2022-01-12_132810.png") no-repeat;
+    background-size: 28px 420px;
+    margin-bottom: 4px;
+}
+
+/*设置主导航页的第一行文字颜色*/
+.main-nav-wrap ul.nav-list li.nav-item:first-child>a{
+    color: #fff;
+}
+
+/*设置主导航页上所有文字大小*/
+.main-nav-wrap ul.nav-list li.nav-item a{
+    font-size: 12px;
+}
+
+/*设置第二系列到第五系列显示左白色边框*/
+.main-nav-wrap ul.nav-list:nth-child(n+2){
+    margin-left: 1px;
+}
+
+/*设置主导航页第一行第一列的图片具体位移*/
+.main-nav-image-hotel1{
+    background-position: 0 -84px;
+}
+
+/*设置主导航页第二行第一列的图片具体位移*/
+.main-nav-image-hotel2{
+    background-position: 0 -336px;
+}
+
+/*设置主导航页第三行第一列的图片具体位移*/
+.main-nav-image-hotel3{
+    background-position: 0 0;
+}
+
+/*设置第一列后两行的背景颜色, 同时添加上外边距, 创造间隔*/
+.main-nav-wrap ul.nav-list li.nav-hotel:nth-child(n+2){
+    background: #fff5f1;
+    margin-top: 1px;
+}
+
+/*设置第一列第一行的背景颜色和左上角圆角*/
+.main-nav-wrap ul.nav-list li.nav-hotel:first-child{
+    /*设置渐变色, 180deg表示, 沿下方向(顺时针180度,从0点方向开始) 后两个表示起始渐变方向和最终渐变颜色*/
+    background-image: linear-gradient(180deg,#fa5956,#fb8650);
+    border-top-left-radius: 8px;
+}
+
+/*设置第一列第三行左下角圆角*/
+.main-nav-wrap ul.nav-list li.nav-hotel:last-child{
+    border-bottom-left-radius: 8px;
+}
+
+/*设置主导航页第一行第二列的图片具体位移*/
+.main-nav-image-plane1{
+    background-position: 0 -168px;
+}
+
+/*设置主导航页第二行第二列的图片具体位移*/
+.main-nav-image-plane2{
+    background-position: 0 -56px;
+}
+
+/*设置主导航页第三行第二列的图片具体位移*/
+.main-nav-image-plane3{
+    background-position: 0 -280px;
+}
+
+/*设置第二列后两行的背景颜色, 同时添加上外边距, 创造间隔*/
+.main-nav-wrap ul.nav-list li.nav-plane:nth-child(n+2){
+    background: #eff9ff;
+    margin-top: 1px;
+}
+
+/*设置第二列第一行的背景颜色*/
+.main-nav-wrap ul.nav-list li.nav-plane:first-child{
+    /*设置渐变色, 180deg表示, 沿下方向(顺时针180度,从0点方向开始) 后两个表示起始渐变方向和最终渐变颜色*/
+    background-image: linear-gradient(180deg,#3c83fa,#50b2fa);
+}
+
+/*设置主导航页第一行第三列图片具体位移*/
+.main-nav-image-train1{
+    background-position: 0 -364px;
+}
+
+/*设置主导航页第二行第三列的图片具体位移*/
+.main-nav-image-train2{
+    background-position: 0 -224px;
+}
+
+/*设置主导航页第三行第三列的图片具体位移*/
+.main-nav-image-train3{
+    background-position: 0 -252px;
+}
+
+/*设置第三列后两行的背景颜色, 同时添加上外边距, 创造间隔*/
+.main-nav-wrap ul.nav-list li.nav-train:nth-child(n+2){
+    background: #f2f5ff;
+    margin-top: 1px;
+}
+
+/*设置第三列第一行的背景颜色*/
+.main-nav-wrap ul.nav-list li.nav-train:first-child{
+    /*设置渐变色, 180deg表示, 沿下方向(顺时针180度,从0点方向开始) 后两个表示起始渐变方向和最终渐变颜色*/
+    background-image: linear-gradient(0deg,#66a4ff,#5e80ff);
+}
+
+/*设置主导航页第一行第四列图片具体位移*/
+.main-nav-image-travel1{
+    background-position: 0 -140px;
+}
+
+/*设置主导航页第二行第四列的图片具体位移*/
+.main-nav-image-travel2{
+    background-position: 0 -196px;
+}
+
+/*设置主导航页第三行第四列的图片具体位移*/
+.main-nav-image-travel3{
+    background-position: 0 -392px;
+}
+
+/*设置第四列后两行的背景颜色, 同时添加上外边距, 创造间隔*/
+.main-nav-wrap ul.nav-list li.nav-travel:nth-child(n+2){
+    background: #ecfcf8;
+    margin-top: 1px;
+}
+
+/*设置第四列第一行的背景颜色*/
+.main-nav-wrap ul.nav-list li.nav-travel:first-child{
+    /*设置渐变色, 180deg表示, 沿下方向(顺时针180度,从0点方向开始) 后两个表示起始渐变方向和最终渐变颜色*/
+    background-image: linear-gradient(180deg,#2fc3b6,#52d9b3);
+}
+
+/*设置主导航页第一行第五列的图片具体位移*/
+.main-nav-image-consume1{
+    background-position: 0 -28px;
+}
+
+/*设置主导航页第二行第五列的图片具体位移*/
+.main-nav-image-consume2{
+    background-position: 0 -112px;
+}
+
+/*设置主导航页第三行第五列的图片具体位移*/
+.main-nav-image-consume3{
+    background-position: 0 -308px;
+}
+
+/*设置第五列后两行的背景颜色, 同时添加上外边距, 创造间隔*/
+.main-nav-wrap ul.nav-list li.nav-consume:nth-child(n+2){
+    background: #fff9f2;
+    margin-top: 1px;
+}
+
+/*设置第五列第一行的背景颜色和左上角圆角*/
+.main-nav-wrap ul.nav-list li.nav-consume:first-child{
+    /*设置渐变色, 180deg表示, 沿下方向(顺时针180度,从0点方向开始) 后两个表示起始渐变方向和最终渐变颜色*/
+    background-image: linear-gradient(0deg,#ffa846,#ff8939);
+    border-top-right-radius: 8px;
+}
+
+/*设置第五列第三行左下角圆角*/
+.main-nav-wrap ul.nav-list li.nav-consume:last-child{
+    border-bottom-right-radius: 8px;
+}
+
+/*主导航栏分页*/
+.main-nav-separator{
+    width: 100%;
+    height: 30px;
+    background-image: linear-gradient(0deg,#f4f4f4,#fff);
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+}
+
+/*子导航栏框架大小*/
+.sub-banner{
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 148px;
+    padding: 0 12px;
+    margin-left: -4px;
+}
+
+/*设置两个子选项*/
+.sub-banner .sub-items{
+    height: 132px;
+    flex: 1;
+    padding: 8px;
+    margin-left: 8px;
+    border-radius: 8px;
+    background: #fff;
+}
+
+/*子选项的头部*/
+.sub-banner .sub-items .header-bar{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 20px;
+    margin-bottom: 4px;
+}
+
+/*子选项主体部分*/
+.sub-banner .sub-items .body-bar{
+    display: flex;
+    width: 100%;
+    height: 84px;
+}
+
+/*子选项头部的标题部分*/
+.sub-item1-title{
+    height: 20px;
+}
+
+/*子选项头部的描述或补充部分*/
+.sub-item1-desc{
+    height: 16px;
+    border-radius: 2px;
+    padding: 1px 4px;
+    color: #ff4607;
+    font-size: 10px;
+    background: #ffebe3;
+    white-space: nowrap;
+}
+
+/*子选项主体的图片*/
+.sub-banner .sub-items .body-bar .body-image1{
+    height: 84px;
+    width: 100%;
+    display: flex;
+    border-radius: 6px;
+    background-image: url("../images/200g1d000001em13v1B14_D_280_280_R5.jpg");
+    background-position: 0 -65px;
+    background-size: 234px auto;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*第一个子项目主体图片的上行文字*/
+.sub-banner .sub-items .body-bar .body-image1 span:first-child{
+    padding-left: 3px;
+    color: #fff;
+    font-size: 12px;
+    background: rgba(51,51,51,.8);
+    width: 52px;
+    height: 14px;
+    border-radius: 6px 0 6px 0;
+    line-height: 12px;
+}
+
+/*第一行子项目主题图片的下行文字*/
+.sub-banner .sub-items .body-bar .body-image1 span:last-child{
+    padding-left: 4px;
+    padding-bottom: 4px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/*价格注脚*/
+.sub-banner .sub-items .footer-bar {
+    height: 16px;
+    margin-top: 5px;
+    overflow-y: hidden;
+    line-height: 16px;
+}
+
+/*两个子项目中第一个当前价格*/
+.sub-banner .sub-items .footer-bar .current-price-item{
+    font-size: 16px;
+    color: #f60;
+    font-weight: 700;
+}
+
+/*两个子项目中第一个当前价格的价格符号$*/
+.sub-banner .sub-items .footer-bar .current-price-item i{
+    font-size: 12px;
+    font-style: normal;
+}
+
+/*原先价格*/
+.sub-banner .sub-items .footer-bar .previous-price-item{
+    font-size: 12px;
+    color: #666;
+    margin-left: -3px;
+    vertical-align: top;
+}
+
+/*折扣提示*/
+.sub-banner .sub-items .footer-bar .discount{
+    background: linear-gradient(90deg,#fa5956,#fb8650);
+    color: #fff;
+    font-size: 10px;
+    padding: 0 3px;
+    border-radius: 2px;
+    /*对于内联标签,用vertical-align: top可以很好的让文字对齐*/
+    vertical-align: top;
+}
+
+/*第二个子项目的描述部分*/
+.sub-banner .sub-items .header-bar .sub-item2-desc{
+    padding: 1px 4px;
+    height: 16px;
+    background: #fdefd2;
+    color: #ae6e15;
+    border-radius: 2px;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+/*第二个子选项主体部分*/
+.sub-banner .sub-items .body-bar2{
+    display: flex;
+    width: 100%;
+    height: 106px;
+}
+
+/*子项目二的两个链接*/
+[class^=body-sub-a]{
+    flex: 1;
+    margin-left: 4px;
+}
+
+/*包裹第二个子项目两个图片和文字的区域*/
+.body-sub-div{
+    position: relative;
+    height: 84px;
+    top:0;
+    left:0;
+}
+
+/*子项目二中的第一个链接*/
+/*flex可能能够自动把所有子项目的margin先删除,之后再平均分配*/
+.body-sub-a1{
+    margin-left: 0;
+}
+
+/*第二个子项目中的图片*/
+.body-sub-image{
+    width: 100%;
+    height: 84px;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*第二个子项目中的两个图片的左上角文字*/
+.tag{
+    height: 14px;
+    padding: 0 3px;
+    border-radius: 6px 0 6px 0;
+    background-image: linear-gradient(270deg,#f8e1bd,#e2c089);
+    font-size: 10px;
+    line-height: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*第二个子项目的两个图片的下方文字样式*/
+.body-image-desc{
+    font-size: 11px;
+    margin-top: 4px;
+    color: #333;
+    /*文本溢出会显示...*/
+    text-overflow: ellipsis;
+    /*缩放时,文本超出将不换行*/
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: PingFangSC-Semibold;
+}
+
+/*滚动窗口总占位*/
+.scroll-wrapper{
+    padding: 12px 18px;
+    height:126px;
+}
+
+/*滚动窗口图片*/
+.scroll-wrapper img{
+    border-radius: 6px;
+    width: 100%;
+}
+
+/*下方菜单功能*/
+.function-menu{
+    display: flex;
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 50px;
+    width: 100%;
+    max-width: 540px;
+    min-width: 340px;
+    background: #fff;
+}
+
+/*下方菜单功能选项*/
+.function-option{
+    height: 45px;
+    padding-bottom: 5px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*下方功能菜单图片*/
+[class^=function-image]{
+    height: 32px;
+    width: 32px;
+    background: url("../images/tabbar.png") no-repeat;
+    background-size: 32px 160px;
+}
+
+/*下方功能菜单一图片偏移*/
+.function-image1{
+    background-position: 0 0;
+}
+
+/*下方功能菜单二图片偏移*/
+.function-image2{
+    background-position: 0 -32px;
+}
+
+/*下方功能菜单三图片偏移*/
+.function-image3{
+    background-position: 0 -128px;
+}
+
+/*下方功能菜单四图片偏移*/
+.function-image4{
+    background-position: 0 -64px;
+}
+
+/*下方功能菜单五图片偏移*/
+.function-image5{
+    background-position: 0 -96px;
+}
+
+/*工具栏*/
+.toolbox{
+    box-sizing: border-box;
+    height: 200px;
+    padding: 12px 0 50px;
+    color: #666666;
+    font-size: 10px;
+}
+
+/*工具栏的第一行--工具组*/
+.tool-group{
+    display: flex;
+    height:32px;
+    justify-content: space-around;
+}
+
+/*工具组中的每一个工具选项*/
+.tool-item{
+    display: flex;
+    /*如果想要设置宽度,但是又想要自适应,可以使用min-width和max-width来设置长度*/
+    border: solid 1px #999999;
+    min-width: 100px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+/*工具组中的每一个工具选项的文字*/
+.tool-span-text{
+    font-size: 13px;
+}
+
+/*工具组中的每一个工具选项的图片*/
+[class^=tool-span-image]{
+    margin-right: 4px;
+    color: #666;
+}
+
+/*工具组中的第一个工具选项的具体图片*/
+.tool-span-image-home::before{
+    content: "\e952";
+}
+
+/*工具组中的第二个工具选项的具体图片*/
+.tool-span-image-download::before{
+    content: "\ed04";
+}
+
+/*工具组中的第三个工具选项的具体图片*/
+.tool-span-image-language::before{
+    content: "\f01b4";
+}
+
+/*工具组中的第三个工具选项的右边倒三角形*/
+.triangle{
+    /*一个边框的本质是倒等边梯形,设置的值本质是上底边到下底边的高*/
+    display: inline-block;
+    border-top: 5px solid #666666;
+    /*transparent是rgba(0,0,0,0)全透明的简记法*/
+    border-right: 4px solid transparent;
+    border-left: solid 4px transparent;
+    border-bottom: 0;
+    margin-top: 1px;
+    margin-left: 2px;
+}
+
+/*更多功能栏*/
+.more-function-box{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+/*更多功能栏文字间距*/
+.more-function-box>a:first-child::after{
+    content: "";
+    padding-right: 60px;
+}

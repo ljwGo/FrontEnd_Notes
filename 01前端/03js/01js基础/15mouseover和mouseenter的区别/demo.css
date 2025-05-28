@@ -1,0 +1,13 @@
+.father{
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
+    background: red;
+}
+
+.son{
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    background: pink;
+}

@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    height : 1000px;
+}
+
+#div1{
+    width: 100px;
+    height: 100px;
+    background: red;
+    overflow-y: scroll;
+}

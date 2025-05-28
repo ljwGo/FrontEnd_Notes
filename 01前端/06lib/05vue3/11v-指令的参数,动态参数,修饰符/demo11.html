@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <!-- 像v-bind这样的指令, 能够接受一个参数 -->
+  <!-- 动态参数, 使用[attributeName]动态指定参数 -->
+  <div class="mount">
+    <ol>
+      <!-- 需要注意,[]中不能够有大写字母, 并且不要有空格 -->
+      <!-- <li v-for="attr in attrs" v-bind:[attr]="value"></li> -->
+      <!-- <li v-for="attr in attrs" v-bind:[attr+1]="value"></li> -->
+      <!-- <li v-for="attr in attrs" v-bind:[attr + 1]="value"></li> -->
+      <li v-for="attr in attrs" v-bind:[attr]="value"></li>
+    </ol>
+  </div>
+  <div id="modifies">
+    <form action="">
+      <!-- 修饰符的使用方法, 以下是阻止默认事件触发 -->
+      <input type="button" value="发送" @click.prevent="replace">
+    </form>
+  </div>
+  <!-- <script>
+    Vue.createApp({
+      data(){
+        return {
+          attrs: ["title", "href", "property"],
+          value: "hahaha"
+        }
+      }
+    }).mount(".mount")
+  </script> -->
+  <script>
+    Vue.createApp({
+      methods: {
+        replace(){
+          confirm("默认事件被阻止了!!!");
+          console.log("事件执行了 ")
+        }
+      }
+    }).mount("#modifies")
+  </script>
+</body>
+</html>

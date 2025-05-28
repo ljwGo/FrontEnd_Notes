@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="test">
+    <span v-bind:title="message">
+      在我这里悬停几秒钟吧!!!
+    </span>
+  </div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          message: "你看到我了!!!"
+        }
+      }
+    }).mount("#test")
+  </script>
+</body>
+</html>

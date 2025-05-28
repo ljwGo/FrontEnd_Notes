@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0"><title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+</head>
+<body>
+  <div id="mount">
+  </div>
+  <!-- 计算属性 -->
+  <!-- <script>
+    // Vue不但支持声明字段, 还支持声明属性(计算属性,可用于分离复杂表达式等)
+    /* 
+      计算属性有一个很重要的特性, 就是会对结果进行缓存(毕竟字段直接返回字面量)
+      而属性则能返回一个复杂的表达式
+    */
+    Vue.createApp({
+      data(){
+        return {
+          aliasName: "张三!!!",
+          newName: "李四",
+        }
+      },
+      computed: {
+        // 定义属性的get方法
+        age(){
+          return "年龄不能告诉你!!!"
+        },
+        // 完整写法
+        name: {
+          get(){
+            return this.aliasName + "dsb"
+          },
+          set(newValue){
+            this.aliasName = newValue
+          }
+        }
+      },
+      methods:{
+        // 还是那句话，最好不要在方法中改变data中的值
+        setNewName(newName){
+          this.name = newName
+          return this.aliasName
+        }
+      },
+      template: `
+        <p>age: {{ age }}</p>
+        <p>name: {{ name }}</p>
+        <p>{{ setNewName(newName) }}</p>
+      `
+    }).mount("#mount")
+  </script> -->
+  <!-- 监听器 -->
+  <script>
+    // Vue提供了一种更通用的监听数据变化的方法,
+    // 当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的
+    const vm = Vue.createApp({
+      data(){
+        return {
+          message: 0,
+          tail: "dsb",
+        }
+      },
+      watch: {
+        // 当数据message变化时,自动触发
+        message(newValue, oldValue){
+          // this.message = newValue + this.tail
+          console.log(111)
+          return newValue
+        }
+      },
+      template: `
+        <p>message: {{message}}</p>
+      `
+    }).mount("#mount")
+
+    // 执行mount方法后, 返回一个vm(viewModel)组件实例
+    vm.message = "哈哈哈"
+  </script>
+</body>
+</html>

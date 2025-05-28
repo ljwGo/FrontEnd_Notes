@@ -1,0 +1,19 @@
+$colorlist: red green yellow;
+$sizelist: (100px 100px) (200px 200px) (300px 300px);
+
+@each $color in $colorlist{
+    // index,scss的内置方法,用于获取索引
+    $i: index($colorlist, $color);
+    div:nth-child(#{$i}){
+        background-color: $color;
+        // 嵌套获取,二维数组
+        width: nth(nth($sizelist, $i), 1);
+        height: nth(nth($sizelist, $i), 2);
+        // 添加可能出现兼容性问题的属性
+        display: flex;
+        backface-visibility: hidden;
+        @if $i == 2{
+            background-image: url('../images/akari.jpg')
+        }
+    }
+}

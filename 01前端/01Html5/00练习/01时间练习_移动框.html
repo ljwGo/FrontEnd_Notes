@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>我的网站</title>
+        <meta name="keywords" content="我的">
+        <meta name="description" content="我的网站，我练习的网站">
+        <script src="./jquery/jquery-3.5.1/jquery-3.5.1.js"></script>
+        <script src="./bootstrap/js/bootstrap.js"></script>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="./css/css.css">
+        <link rel="icon" href="">
+        <style>
+            .closed{
+                background-color: #666;
+            }
+            .button{
+                width: 100px;
+                height: 40px;
+                float:left;
+                background: #2aabd2;
+                font-family: Arial;
+                font-size: 20px;
+                line-height: 32px;
+                vertical-align: middle;
+                text-align: center;
+                border-width: 4px;
+                border-style: groove;
+                border-radius: 15px;
+                overflow: hidden;
+            }
+            .button:hover{
+                color: red;
+                cursor: default;
+            }
+            #backgroundset{
+                width: 300px;
+                height: 200px;
+                background-color: orange;
+                position: absolute;
+                left: 0;
+            }
+            #picture{
+                width: 200px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="backgroundset"></div>
+        <div id="loginbackground" style="display: none"></div>
+        <div id="loginview" style="display: none"></div>
+        <img id="picture" src="./image/picture.jpg">
+        <div>
+            <span class="button" id="open">开灯</span>
+            <span class="button" id="close">关灯</span>
+            <span class="button" id="toggle">关灯/开灯</span>
+            <div id="login">登录</div>
+        </div>
+        <div>
+            <p class="pde">这是一段文本</p>
+        </div>
+    <script>
+        $('#open').on('click',function(){
+            $('body').removeClass('closed');
+        });
+        $('#close').on('click',function(){
+            $('body').addClass('closed');
+        });
+        $('#toggle').on('click',function(){
+           $('body').toggleClass('closed');
+        });
+
+        var dianji = document.getElementsByClassName('pde')[0];
+        dianji.onclick = function(){
+            console.log(this)
+            this.innerText = "文本被修改了";
+        };
+
+        var backgroundset1 = document.getElementById('backgroundset');
+        function start(){
+            let obj = $('#backgroundset')
+            let sum = parseInt(obj.css('left'));
+            let num = parseInt(obj.css('right'));
+            //console.log(typeof(window.innerWidth))
+            //console.log(typeof(sum))
+            let time = window.setInterval(function(){
+                if(num>0){
+                //console.log('函数被调用了')
+                sum++;
+                num--;
+                $(obj).css('left',`${sum}px`);
+            }
+            else {
+                window.clearInterval(time)
+            }},25)
+            return time
+        }
+        var t = start()
+        backgroundset1.onmouseover = function(){
+            clearInterval(t)
+            console.log('计时暂停了')
+        }
+        backgroundset1.onmouseout = function(){
+            console.log('计时开始了')
+            return t = start()
+        }
+        var login = document.getElementById('login');
+        login.onclick = function(){
+            var loginview = document.getElementById('loginview');
+            loginview.style.display = 'block';
+            var loginbackground = document.getElementById('loginbackground');
+            loginbackground.style.display = 'block';
+        }
+
+    </script>
+    </body>
+</html>

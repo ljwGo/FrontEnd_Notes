@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./jquery/jquery-3.5.1/jquery-3.5.1.js"></script>
+    <style>
+        input[type=file]{
+            display:none;
+        }
+        .upload{
+            width: 100px;
+            height: 44px;
+            border-radius: 5px;
+            color: #fff;
+            text-align: center;
+            line-height: 44px;
+            background-color: #000;
+            border-style: none;
+            outline: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" name="avater">
+    <button class="upload">上传文件</button>
+    <script>
+        $('.upload').on('click',function(){
+            $('input[type=file]').trigger('click');
+        })
+    </script>
+</body>
+</html>

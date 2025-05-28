@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        html{
+            font-size: 10px;
+        }
+
+        /*注册栏*/
+        #resign-box{
+            margin: 100px auto;
+            width: 200px;
+            border-bottom: solid #ccc 0.1rem;
+        }
+
+        /*输入框*/
+        #pwd{
+            outline: none;
+            border: 0;
+        }
+
+        /*显示密码眼睛图案,用数字代替图片*/
+        #eye{
+            float: right;
+            padding-right: 4px;
+            padding-bottom: 4px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="resign-box">
+        <label for="pwd" id="eye">1</label>
+        <input id="pwd" type="password" name="pwd">
+    </div>
+    <script>
+        // 获取元素
+        var eyeEle = document.getElementById("eye")
+        var pwdEle = document.getElementById("pwd")
+        var flag = 0;
+        eyeEle.onclick = function (){
+            if (0 === flag){
+                pwdEle.type = "text"
+                // 用数字更换代替图片更换
+                eyeEle.innerText = "2"
+                flag = 1
+            }
+            else {
+                pwdEle.type = "password"
+                eyeEle.innerText = "1"
+                flag = 0
+            }
+        }
+    </script>
+</body>
+</html>

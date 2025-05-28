@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="timer">
+    {{ count }}
+  </div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          count: 0
+        }
+      },
+      // 生命周期钩子函数
+      mounted(){
+        // Vue是数据驱动型的
+        setInterval(()=>{
+          // this.$data.count += 1
+          this.count += 1
+        }, 1000)
+      }
+    }).mount("#timer")
+  </script>
+</body>
+</html>

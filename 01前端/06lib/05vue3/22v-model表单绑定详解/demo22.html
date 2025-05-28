@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <div id="mount">
+    <!-- 基本使用(注意:除初始值外,均是双向绑定), v-model本质利用的是事件,在事件中修改值 -->
+    <!-- 给textarea和text, 利用input事件和value property -->
+    <p>account: {{account}}</p>
+    <input type="text" v-model="account">
+    <p style='white-space: pre-line'>comment: {{comment}}</p>
+    <textarea name="comment" id="comment" cols="30" rows="10" v-model="comment"></textarea>
+    <!-- 给checkbox和radio, 利用checked property和change事件 -->
+      <!-- 单复选框是bool值 -->
+      <input type="checkbox" v-model="signCheckbox" @change="showValue"><span>{{signCheckbox}}</span>
+      <!-- 多复选框是数组, 每个复选框要有value值 -->
+      <div>
+        <input type="checkbox" v-model="multipleCheckbox" value="A">
+        <input type="checkbox" v-model="multipleCheckbox" value="B">
+        <input type="checkbox" v-model="multipleCheckbox" value="C">
+        <span>{{multipleCheckbox}}</span>
+      </div>
+      <!-- 单选框使用的是字符串 -->
+      <div>
+        <input type="radio" name="gander" v-model="ganderVar" value="male">
+        <input type="radio" name="gander" v-model="ganderVar" value="female">
+        <span>{{ ganderVar }}</span>
+      </div>
+    <!-- 给select, 利用input事件和value property -->
+      <!-- 单选select框是字符串(也能够是对象) -->
+      <!-- 单选下拉框和多选下拉框, 需要注意一点, 就是为v-model绑定的变量指定一个能够匹配某个option的初始值 -->
+      <select name="signSelect" id="signSelect" v-model="signSelect">
+        <option value="signSelectOp01">one</option>
+        <option value="signSelectOp02">two</option>
+        <option value="signSelectOp03">three</option>
+      </select>
+      <span>{{signSelect}}</span>
+      <!-- 多选select框是数组 -->
+      <!-- 多选select似乎可以不使用有效默认值 -->
+      <select name="hobby" id="hobbySelect" v-model="hobbyArray" multiple>
+        <option value="basketball">我是实习两年半的练习生</option>
+        <option value="foolball">中国国足</option>
+        <option value="pingpong">日本乒乓</option>
+      </select>
+      <span>{{hobbyArray}}</span>
+    <!-- 单选框, 很特别. v-model获取的始终是true或者false, 而不是value的值 -->
+      <!-- 为什么这样做, 引用场景可能是 确认同意条款的单选框 v-model指定的变量用于业务逻辑, 和value本身无关 -->
+      <div>
+        <input type="checkbox" value="不是false或者true了" v-model="testSignCheckbox">
+        <span>{{testSignCheckbox}}</span>
+      </div>
+      <div>
+    <!-- 这个的作用真不清楚, choiceCheckbox的值不再是true或者false. 依旧不改变value的值 -->
+        <input type="checkbox" v-model="choiceCheckbox" true-value="yes" false-value="no" @change="showValue">
+        <span>{{choiceCheckbox}}</span>
+      </div>
+    <!-- 修饰符 -->
+    <div>修饰符
+      <!-- .lazy 触发更新事件由input改为change(输入框失去焦点时触发) -->
+      <input type="text" v-model.lazy="lazyDecorator">
+      {{lazyDecorator}}
+      <!-- .number 如果内容能被parseFloat解析(字符串前面是数字就行,很坑),就转化为数字;否则为原本类型 -->
+      <div>
+        <input type="text" v-model.number="numberDecorator">
+        {{ numberDecorator }}: {{ typeofValue }}
+      </div>
+      <!-- .trim 去除左右空白 -->
+      <!-- :value绑定的值可以是对象(或对象字面量) -->
+      <div>
+        <select name="city" id="city" v-model="pickedCityVar">
+          <option v-for="cityObj in cityObjs" :value="cityObj">
+            {{ cityObj.name }}
+          </option>
+        </select>
+        {{ pickedCityVar }}
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  const app = Vue.createApp({
+    data(){
+      return {
+        account: "",
+        comment: "",
+        // v-model指向的值的初识值, 不会影响v-model所在的标签
+        signCheckbox: null,
+        // multipleCheckbox初始值必须是数组
+        multipleCheckbox: [],
+        signSelect: "signSelectOp01",
+        hobbyArray: [],
+        ganderVar: "",
+        testSignCheckbox: "",
+        choiceCheckbox: '',
+        lazyDecorator: '',
+        numberDecorator: 0,
+        pickedCityVar: '',
+        cityObjs: [{name: "上海", salary: 20000}, {name:"广州", salary: 30000}, {name: "深圳", salary: 20000}]
+      }
+    },
+    methods: {
+      showValue(event){
+        // 说明还是要显示的指定value, v-model只会改变绑定的元素, 不会影响value, 使用v-bind来显示绑定关系
+        console.log(event.target.getAttribute("value"))
+      }
+    },
+    computed: {
+      typeofValue(){
+        return typeof this.numberDecorator;
+      }
+    },
+  });
+  const vm = app.mount("#mount");
+</script>
+</html>

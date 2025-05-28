@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+  <title>Document</title>
+</head>
+<!-- 
+  prop的方向是单向的, 父组件的更新会同步到子组件的prop, 反之则不会, 注意不要改变子组件中的prop值 
+  具体查看手册深入组件的props栏
+-->
+<body>
+  <div id="mount"></div>
+  <script>
+    // v-bind直接传入一个对象, 作为props的各项
+    // const myComponent = {
+    //   props: ['pid', 'name', 'gander'],
+    //   template: `
+    //     <p>id: {{pid}}</p>
+    //     <p>name: {{name}}</p>
+    //     <p>gander: {{gander}}</p>
+    //   `
+    // };
+    
+    // const app = Vue.createApp({
+    //   data(){
+    //     return {
+    //       person: {pid: "1", name: "ljw", gander: "female"}
+    //     }
+    //   },
+    //   template: `
+    //     <myComponent v-bind="person"></myComponent>
+    //   `,
+    // });
+    // app.component('myComponent', myComponent);
+    // app.mount("#mount");
+    // 为props传入的值, 做类型限制
+      // 支持 Number String Object Sysbol Function 构造函数 Array Boolean
+      const Person = function(name, age, gander){
+        this.name = name;
+        this.age = age;
+        this.gander = gander;
+      };
+
+      const myComponent02 = {
+        props: {
+          prop01: Number,
+          prop02: String,
+          // 这个表示或者的意思
+          prop03: [Number, String],
+          prop04: Array,
+          prop05: Object,
+          prop06: Date,
+          prop07: Function,
+          prop08: Person,
+          prop09: Boolean,
+        },
+        template: `
+          <ol>
+            <li>prop01(Number): {{prop01}}</li>
+            <li>prop02(String): {{prop02}}</li>
+            <li>prop03(Number | String): {{prop03}}</li>
+            <li>prop04(Array): {{prop04}}</li>
+            <li>prop05(Object): {{prop05}}</li>
+            <li>prop06(Date): {{prop06}}</li>
+            <li>prop07(Function): {{prop07}}</li>
+            <li>prop08(Person--customStructor): {{prop08}}</li>
+            <li>prop09(Boolean): {{prop09}}</li>
+          </ol>
+        `
+      }
+      const app02 = Vue.createApp({
+        data(){
+          return {
+            onePerson: new Person('lisi', age=10, gander='female'),
+            date: new Date()
+          }
+        },
+        components: {
+          myComponent02,
+        },
+        // 当所给的参数类型和定义的不同时, Vue会发出警告
+        // 传入字符串时需要注意
+        template: `
+          <myComponent02 
+          :prop01="1" 
+          :prop02="'str'" 
+          :prop03="'array'" 
+          :prop04="['array', 'str']" 
+          :prop05="{id: 'ljw', age: 18}"
+          :prop06="date"
+          :prop07="()=>{console.log('this is a function')}"
+          :prop08="onePerson"
+          :prop09="true">
+          </myComponent02>
+        `
+      });
+      app02.mount("#mount");
+
+    // 对props传入值更详细的限制
+      // 支持默认值
+      const myComponent03 = {
+        props: {
+          prop01: {
+            type: Number,
+            // 设定默认值
+            default: 100,
+            // 必要
+            require: true,
+          },
+          prop02: String,
+          prop03: [Number, String],
+          prop04: Array,
+          prop05: {
+            // 必须传入工厂方法
+            type: Object,
+            default: function(){
+              return {key: 'value'}
+            }
+          },
+          prop06: Date,
+          prop07: {
+            type: Function,
+            default(){
+              return true;
+            }
+          },
+          prop08: Person,
+          prop09: Boolean,
+          // 甚至是自定义的效验函数
+          prop10: {
+            validors: function(value){
+              return ['1', '2', '3'].include(value);
+            }
+          }
+        },
+        template: `
+          <ol>
+            <li>prop01(Number): {{prop01}}</li>
+            <li>prop02(String): {{prop02}}</li>
+            <li>prop03(Number | String): {{prop03}}</li>
+            <li>prop04(Array): {{prop04}}</li>
+            <li>prop05(Object): {{prop05}}</li>
+            <li>prop06(Date): {{prop06}}</li>
+            <li>prop07(Function): {{prop07}}</li>
+            <li>prop08(Person--customStructor): {{prop08}}</li>
+            <li>prop09(Boolean): {{prop09}}</li>
+          </ol>
+        `
+      }
+  </script>
+</body>
+</html>

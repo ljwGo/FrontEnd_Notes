@@ -1,0 +1,50 @@
+body {
+  background-color: #666;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to{
+    transform: rotateZ(360deg);
+  }
+}
+
+/* 复杂的图形都是通过简单图形通过图层堆叠出来的 */
+/* 这完成了一个一半黑一半白的圆 */
+.taiji {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: calc(50% - 200px);
+  left: calc(50% - 200px);
+  box-sizing: border-box;
+  border-left: 200px #fff solid;
+  border-radius: 50%;
+  background-color: #000;
+  animation-name: rotate;
+  animation-duration: 6s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* 上半是一个白圆,下半是一个黑圆 */
+.taiji::before, .taiji::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  border: 75px solid #fff;
+  border-radius: 50%;
+  background-color: #000;
+}
+
+.taiji::after {
+  background-color: #fff;
+  border-color: #000;
+}
+
+/* 一定要善用盒子模型中的border, padding, content, margin, 伪元素和box-sizing */

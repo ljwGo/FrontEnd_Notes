@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+</head>
+<body>
+  <!-- 有关多重值, 参考手册 -->
+  <div id="mount"></div>
+  <script>
+    Vue.createApp({
+      data(){
+        return {
+          // Vue中的css property是支持驼峰式命名的
+          StyleObj: {
+            color: "red",
+            fontSize: "20px",
+            // Vue会对一些具有兼容性问题的css属性, 自动寻找合适的前缀进行添加, 以便适应不同的浏览器
+            display: "flex",
+          }
+        }
+      },
+      // style的设置和一个普通的属性attr的绑定是一样的, 支持变量,字面量,计算属性,表达式等
+      template: `
+        <p :style="StyleObj">我是一段文本</p>
+      `
+    }).mount("#mount")
+  </script>
+</body>
+</html>
